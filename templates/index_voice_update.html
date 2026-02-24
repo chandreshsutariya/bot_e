@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ginni Support Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body {
+      background-color: #1a1a1a;
+    }
+    /**.chat-container {
+      height: calc(100dvh - 200px);
+    }**/
+    .chat-container {
+      height: calc(100dvh - 200px);
+      width: 100%; /* Make it span the full width of its parent */
+      max-width: 100%; /* Optional: limits it so it doesn’t stretch too far */
+      margin: 0 auto; /* Centers it horizontally if max-width is set */
+    }
+    button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    }
+    .message {
+      animation: fadeIn 0.3s ease-out;
+      animation-fill-mode: both;
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 6px 12px;
+      background-color: #8b5cf6; /* Tailwind purple-500 */
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+    }
+    .download-btn:hover {
+      background-color: #7c3aed; /* Tailwind purple-600 */
+    }
+
+
+    .chat-container p,
+    .chat-container ul,
+    .chat-container code {
+      margin-bottom: 0.5rem;
+      word-wrap: break-word;
+    }
+    .chat-container code {
+      background-color: #2d2d2d;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    .chat-container ul {
+      padding-left: 1.2rem;
+      list-style-type: disc;
+      margin-top: 0.3rem;
+      margin-bottom: 0.5rem;
+      color: #e0e0e0;
+    }
+    .chat-container strong {
+      display: block;
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+
+
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- Chat Toggle -->
+  <div class="fixed bottom-4 right-4 z-50">
+    <button id="toggle-chat" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full p-3 shadow-lg">
+      Ginni
+    </button>
+  </div>
+
+  <!-- Chatbot Box -->
+  <div id="chatbot" class="hidden fixed bottom-20 right-4 w-[90vw] max-w-sm h-[80vh] bg-gray-800 rounded-2xl shadow-lg flex flex-col z-40">
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
+      <div>
+        <h1 class="font-bold text-xl">Ginni Support</h1>
+        <p class="text-sm text-gray-200">Ask your queries freely</p>
+      </div>
+      <button id="mode-toggle" class="text-sm bg-white text-gray-800 px-3 py-1 rounded-full font-semibold hover:bg-gray-200">
+        Switch to Voice 🎤
+      </button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="chat-messages" class="chat-container overflow-y-auto p-4 space-y-4 flex-1">
+      <div class="message flex">
+        <div class="w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+          G
+        </div>
+
+        <div class="bg-gray-700 text-white rounded-lg px-4 py-2 text-sm">
+          <b>👋 Hi! I’m Ginni. How I can help you.</b>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Input UI -->
+    <!-- <div id="text-mode-ui" class="border-t border-gray-600 bg-gray-700 p-3 flex items-center gap-2">
+      <input id="message-input" type="text" placeholder="Type your message..." class="flex-grow border-none rounded-full py-2 px-4 text-white bg-gray-800 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+      <button id="send-btn" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-sm px-4 py-2 rounded-full font-semibold">
+        Send
+      </button>
+    </div> -->
+    <!-- Text Input UI -->
+    <div id="text-mode-ui" class="border-t border-gray-600 bg-gray-700 p-3 flex flex-col gap-2">
+      <div class="flex items-center gap-2 w-full">
+        <input id="message-input" type="text" placeholder="Type your message..."
+          class="flex-grow border-none rounded-full py-2 px-4 text-white bg-gray-800 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+        <button id="send-btn"
+          class="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-sm px-4 py-2 rounded-full font-semibold">
+          Send
+        </button>
+      </div>
+      <div class="flex justify-between text-xs px-2">
+        <span id="char-count" class="text-gray-300">0 / 300</span>
+        <span id="char-warning" class="text-red-500 hidden">⚠️ Invalid input: max 300 characters allowed</span>
+      </div>
+    </div>
+
+    <!-- Voice Mode UI -->
+    <div id="voice-mode-ui" class="hidden border-t border-gray-600 bg-gray-700 p-4 text-white text-sm flex items-center justify-between">
+      <span id="voice-status">🎙️ Voice Mode: Listening...</span>
+      <button id="restart-voice" class="text-sm bg-gray-600 hover:bg-gray-500 text-white rounded-full px-4 py-2">Restart</button>
+    </div>
+
+    <!-- Restart Chat -->
+    <div class="flex justify-center p-3">
+      <button onclick="restartChat()" class="text-white text-sm bg-gray-600 hover:bg-gray-500 rounded-full px-4 py-2 shadow">
+        Restart
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const chatbot = document.getElementById('chatbot');
+    const toggleChat = document.getElementById('toggle-chat');
+    const chatMessages = document.getElementById('chat-messages');
+    const messageInput = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+    const modeToggle = document.getElementById('mode-toggle');
+    const textUI = document.getElementById('text-mode-ui');
+    const voiceUI = document.getElementById('voice-mode-ui');
+    const voiceStatus = document.getElementById('voice-status');
+    const restartVoice = document.getElementById('restart-voice');
+    const sessionId = `session_${crypto.randomUUID()}`;
+    const username = window.userId || "User"; 
+
+    const charCount = document.getElementById("char-count");
+    const charWarning = document.getElementById("char-warning");
+
+    messageInput.addEventListener("input", () => {
+      const currentLength = messageInput.value.length;
+      charCount.textContent = `${currentLength} / 300`;
+
+      if (currentLength > 300) {
+        charCount.classList.add("text-red-500");
+        charWarning.classList.remove("hidden");
+        sendBtn.disabled = true;
+        sendBtn.classList.add("opacity-50", "cursor-not-allowed");
+      } else {
+        charCount.classList.remove("text-red-500");
+        charWarning.classList.add("hidden");
+        sendBtn.disabled = false;
+        sendBtn.classList.remove("opacity-50", "cursor-not-allowed");
+      }
+    });
+
+
+    let isVoiceMode = false;
+
+    toggleChat.addEventListener('click', () => {
+      chatbot.classList.toggle('hidden');
+    });
+
+    modeToggle.addEventListener('click', () => {
+      isVoiceMode = !isVoiceMode;
+      textUI.classList.toggle('hidden', isVoiceMode);
+      voiceUI.classList.toggle('hidden', !isVoiceMode);
+      modeToggle.textContent = isVoiceMode ? "Switch to Text ⌨️" : "Switch to Voice 🎤";
+      if (isVoiceMode) startVoiceRecognition();
+    });
+
+    sendBtn.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // function addMessage(sender, text) {
+    //   const div = document.createElement('div');
+    //   div.className = `message flex ${sender === 'user' ? 'justify-end' : ''}`;
+
+    //   const innerDiv = document.createElement('div');
+    //   innerDiv.className = `${sender === 'user' ? 'bg-gradient-to-r from-purple-600 to-pink-500' : 'bg-gray-700'} text-white rounded-lg px-4 py-2 text-sm max-w-[85%]`;
+      
+    //    const content = sender === 'bot'
+    //     ? marked.parse(text)
+    //     : text;
+    //   innerDiv.innerHTML = content;
+
+    //   div.appendChild(innerDiv);
+    //   chatMessages.appendChild(div);
+    //   chatMessages.scrollTop = chatMessages.scrollHeight;
+    // }
+    function addMessage(sender, text) {
+      const div = document.createElement('div');
+      div.className = `message flex items-start gap-2 ${sender === 'user' ? 'justify-end' : ''}`;
+
+      const avatar = document.createElement('div');
+      if (sender === 'bot') {
+        avatar.className = 'w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold';
+        avatar.textContent = 'G';
+        div.appendChild(avatar);
+      }
+
+      const innerDiv = document.createElement('div');
+      innerDiv.className = `${sender === 'user'
+        ? 'bg-gradient-to-r from-purple-600 to-pink-500'
+        : 'bg-gray-700'} text-white rounded-lg px-4 py-2 text-sm leading-relaxed break-words max-w-[80%]`;
+
+      innerDiv.innerHTML = sender === 'bot' ? marked.parse(text) : text;
+
+      div.appendChild(innerDiv);
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function addBotMessage(text) {
+      const container = document.createElement('div');
+      container.className = 'message flex items-start gap-2';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold';
+      avatar.textContent = 'G';
+      container.appendChild(avatar);
+
+      const messageBox = document.createElement('div');
+      messageBox.className = 'bg-gray-700 text-white rounded-lg px-4 py-2 text-sm leading-relaxed break-words max-w-[80%]';
+      container.appendChild(messageBox);
+      chatMessages.appendChild(container);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      for (let i = 0; i < text.length; i++) {
+        messageBox.innerHTML = marked.parse(text.substring(0, i + 1));
+        await new Promise(resolve => setTimeout(resolve, 20)); // Adjust typing speed
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Add time stamp
+      const timestamp = document.createElement('div');
+      timestamp.className = 'text-xs text-gray-400 mt-1';
+      const now = new Date();
+      timestamp.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit'});
+      messageBox.appendChild(timestamp);
+
+      speak(text);
+    }
+
+
+    function addTypingIndicator() {
+      const div = document.createElement('div');
+      div.className = 'message flex';
+      div.innerHTML = `<div class="bg-gray-700 text-white rounded-lg px-4 py-2 text-sm max-w-[85%]">Typing...</div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const typingDiv = document.querySelector('.message.flex:last-child');
+      if (typingDiv && typingDiv.textContent.trim() === 'Typing...') typingDiv.remove();
+    }
+
+    async function sendMessage() {
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      addMessage('user', message);
+      messageInput.value = '';
+      addTypingIndicator();
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR_API_KEY'
+          },
+          body: JSON.stringify({ 
+            session_id: sessionId,
+            message: message,
+            username: username,
+            context: 'customer_support' 
+          })
+        });
+
+        const data = await res.json();
+        removeTypingIndicator();
+        addBotMessage(data.reply || "Sorry, I couldn't understand that.");
+      } catch (err) {
+        removeTypingIndicator();
+        addBotMessage("Something went wrong.");
+        console.error(err);
+      }
+    }
+
+    function restartChat() {
+      chatMessages.innerHTML = `
+        <div class="message flex">
+          <div class="bg-gray-700 text-white rounded-lg px-4 py-2 text-sm">
+            Hello! <b>How can I assist you today?</b>
+          </div>
+        </div>`;
+    }
+
+    // function speak(text) {
+    //   const synth = window.speechSynthesis;
+    //   if (!synth) return;
+
+    //   // Stop any ongoing speech
+    //   synth.cancel();
+
+    //   const utter = new SpeechSynthesisUtterance(text);
+    //   utter.lang = 'en-US';
+    //   synth.speak(utter);
+    // }
+    function speak(text) {
+      const synth = window.speechSynthesis;
+      if (!synth) return;
+
+      // Stop any ongoing speech
+      synth.cancel();
+
+      // Create the utterance
+      const utter = new SpeechSynthesisUtterance(text);
+
+      // Detect if the text is Hindi (basic check for Devanagari characters)
+      const isHindi = /[\u0900-\u097F]/.test(text);
+      const targetLang = isHindi ? 'hi-IN' : 'en-CA';
+      const targetName = isHindi
+        ? 'Google हिन्दी (hi-IN)'
+        : 'Google UK English Female (en-GB)';
+
+      // Load voices and find the matching one
+      const voices = synth.getVoices();
+      const selectedVoice = voices.find(
+        (voice) => voice.name === targetName || (voice.lang === targetLang && voice.name.includes(isHindi ? 'Kalpana' : 'Linda'))
+      );
+
+      if (selectedVoice) {
+        utter.voice = selectedVoice;
+        utter.lang = selectedVoice.lang;
+      } else {
+        console.warn(`${targetName} not found. Using fallback voice.`);
+        utter.lang = targetLang;
+      }
+
+      synth.speak(utter);
+    }
+
+    function startVoiceRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('Your browser does not support voice recognition.');
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = false;
+
+      recognition.start();
+      voiceStatus.textContent = "🎙️ Listening...";
+
+      recognition.onresult = (e) => {
+        const transcript = e.results[0][0].transcript;
+        addMessage('user', transcript);
+        fetchBotResponse(transcript);
+      };
+
+      recognition.onerror = () => {
+        voiceStatus.textContent = "🎤 Error. Try again.";
+      };
+
+      recognition.onend = () => {
+        if (isVoiceMode) setTimeout(startVoiceRecognition, 800);
+      };
+    }
+
+    restartVoice.addEventListener('click', () => {
+      startVoiceRecognition();
+    });
+
+    async function fetchBotResponse(message) {
+      addTypingIndicator();
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR_API_KEY'
+          },
+          body: JSON.stringify({ 
+            session_id: sessionId,
+            message: message,
+            username: username,
+            context: 'customer_support'
+          })
+        });
+
+        removeTypingIndicator();
+
+        const contentType = res.headers.get('Content-Type');
+
+        if (contentType && (contentType.includes('application/') || contentType.includes('image/'))) {
+          // Handle file response
+          const blob = await res.blob();
+          const fileUrl = URL.createObjectURL(blob);
+
+          // Optional: extract filename from header if available
+          const disposition = res.headers.get('Content-Disposition');
+          let fileName = 'downloaded_file';
+          if (disposition && disposition.includes('filename=')) {
+            fileName = disposition.split('filename=')[1].replace(/['"]/g, '');
+          }
+
+          // Create download button
+          const container = document.createElement('div');
+          container.className = 'message flex items-start gap-2';
+
+          const avatar = document.createElement('div');
+          avatar.className = 'w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold';
+          avatar.textContent = 'G';
+          container.appendChild(avatar);
+
+          const messageBox = document.createElement('div');
+          messageBox.className = 'bg-gray-700 text-white rounded-lg px-4 py-2 text-sm leading-relaxed break-words max-w-[80%]';
+          messageBox.innerHTML = `<p>📎 Here’s your file:</p>`;
+
+          const downloadLink = document.createElement('a');
+          downloadLink.href = fileUrl;
+          downloadLink.download = fileName;
+          downloadLink.innerHTML = `
+            <img src="https://img.icons8.com/?size=100&id=53647&format=png&color=ffffff" 
+                alt="Download" 
+                class="inline w-5 h-5 mr-2 align-middle" />
+            Open File
+          `;
+
+          downloadLink.className = 'download-btn';
+          messageBox.appendChild(downloadLink);
+
+          container.appendChild(messageBox);
+          chatMessages.appendChild(container);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        } else {
+          // Handle regular text reply
+          const data = await res.json();
+          addBotMessage(data.reply || "Sorry, I couldn't understand that.");
+        }
+      } catch (err) {
+        removeTypingIndicator();
+        addBotMessage("Something went wrong.");
+        console.error(err);
+      }
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+    "userwallets": [
+        "Description: Stores all user wallet details, including encryption keys, backup statuses, associated tokens, and wallet metadata.",
+        "(userwallets) _id (ObjectId): Unique identifier for the user wallet document.",
+        "(userwallets) userId (ObjectId, required): Reference to the user who owns the wallet. Refers to MODEL_USER.",
+        "(userwallets) walletName (String, required): Name assigned to the wallet by the user.",
+        "(userwallets) encKey (String, required): Encrypted key for secure wallet operations.",
+        "(userwallets) decKey (String, required): Decryption key for accessing wallet funds.",
+        "(userwallets) vaultAccountAssetId (String | null, default: null): Optional ID for the associated vault asset.",
+        "(userwallets) isBackup (Number | null, default: null): Indicates if a backup exists (1=yes, 0=no).",
+        "(userwallets) isCloudBackup (Number | null, default: null): Flag for cloud backup status.",
+        "(userwallets) isManualBackup (Number | null, default: null): Flag for manual backup status.",
+        "(userwallets) isAlreadyTaken (Boolean | null): Indicates if the backup has already been taken.",
+        "(userwallets) skipDate (Date | null): Date when backup was skipped.",
+        "(userwallets) cloudBackupDate (Date | null): Date of last cloud backup.",
+        "(userwallets) manualBackupDate (Date | null): Date of last manual backup.",
+        "(userwallets) isSelect (Number, default: 0): Selection status for wallet operations.",
+        "(userwallets) isDelete (Number, default: 0): Flag indicating if wallet is deleted (1=yes, 0=no).",
+        "(userwallets) tokenIds (Array): Array of token IDs associated with this wallet.",
+        "(userwallets) createdAt (Date): Timestamp of when the wallet was created.",
+        "(userwallets) updatedAt (Date): Timestamp of the last update to the wallet document."
+    ],
+    "userwalletaddresses": [
+        "Description: Stores blockchain addresses associated with each user's wallet, including chain and token references.",
+        "(userwalletaddresses) _id (ObjectId): Unique identifier for the wallet address document.",
+        "(userwalletaddresses) userId (ObjectId, required): Reference to the user who owns the wallet. Refers to MODEL_USER.",
+        "(userwalletaddresses) walletId (ObjectId, required): Reference to the user wallet. Refers to MODEL_USER_WALLET.",
+        "(userwalletaddresses) chain (String | null): Blockchain network name (like, Ethereum, BSC).",
+        "(userwalletaddresses) chainId (ObjectId, required): Reference to the token on the blockchain. Refers to MODEL_TOKEN.",
+        "(userwalletaddresses) subscriptionId (String | null, default: null): Optional subscription ID linked to this address.",
+        "(userwalletaddresses) address (String | null, default: null): Blockchain address associated with the wallet.",
+        "(userwalletaddresses) createdAt (Date): Timestamp of when the wallet address was created.",
+        "(userwalletaddresses) updatedAt (Date): Timestamp of the last update to the wallet address document."
+    ],
+    "Relationships": [
+        "**NOTE: This relationship is only for the your semantic understanding for correct query generation not part of the MongoDB schema itself.**",
+        "userwalletaddresses.walletId corresponds to userwallets._id"
+    ]
+}

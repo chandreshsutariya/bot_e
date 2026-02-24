@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playage AI Support</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Floating Toggle ── */
+    #toggle-btn {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #6c3de8, #3b82f6);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(108,61,232,0.45);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+    #toggle-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(108,61,232,0.55);
+    }
+    #toggle-btn svg { transition: transform 0.3s; }
+    #toggle-btn.open svg { transform: rotate(180deg); }
+
+    /* ── Chat Window ── */
+    #chat-window {
+      width: 370px;
+      max-height: 620px;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.16);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+    }
+
+    /* ── Header ── */
+    .chat-header {
+      background: linear-gradient(135deg, #1e1148 0%, #2d1b69 60%, #1e3a8a 100%);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .header-logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+    .header-title { font-size: 15px; font-weight: 600; color: #fff; }
+    .header-sub   { font-size: 11px; color: #a5b4fc; margin-top: 1px; display: flex; align-items: center; gap: 5px; }
+    .online-dot   { width: 7px; height: 7px; background: #34d399; border-radius: 50%; display: inline-block; }
+
+    /* ── Messages ── */
+    #chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+    #chat-messages::-webkit-scrollbar { width: 5px; }
+    #chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+    /* Bot message */
+    .msg-bot { display: flex; align-items: flex-start; gap: 9px; }
+    .bot-avatar {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+    .bot-bubble {
+      background: #eef2ff;
+      border: 1px solid #e0e7ff;
+      color: #1e293b;
+      border-radius: 4px 14px 14px 14px;
+      padding: 10px 14px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      max-width: 82%;
+      word-break: break-word;
+    }
+    .bot-bubble p { margin: 0; }
+    .bot-bubble ul { margin: 6px 0 0 16px; padding: 0; }
+    .bot-bubble li { margin-bottom: 3px; }
+    .msg-meta { font-size: 10.5px; color: #9ca3af; margin-top: 5px; }
+
+    /* User message */
+    .msg-user { display: flex; justify-content: flex-end; }
+    .user-bubble {
+      background: linear-gradient(135deg, #6c3de8, #3b82f6);
+      color: #fff;
+      border-radius: 14px 4px 14px 14px;
+      padding: 10px 14px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      max-width: 78%;
+      word-break: break-word;
+    }
+
+    /* Typing indicator */
+    .typing-dots { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+    .typing-dots span {
+      width: 7px; height: 7px;
+      background: #6366f1;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    .typing-dots span:nth-child(1) { animation-delay: 0s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30%            { transform: translateY(-6px); }
+    }
+
+    /* ── Quick Replies ── */
+    #quick-replies {
+      padding: 10px 14px 4px;
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      overflow-x: auto;
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #quick-replies::-webkit-scrollbar { display: none; }
+    .qr-chip {
+      padding: 6px 13px;
+      border-radius: 20px;
+      border: 1.5px solid #c7d2fe;
+      color: #4f46e5;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+    .qr-chip:hover {
+      background: #6c3de8;
+      border-color: #6c3de8;
+      color: #fff;
+    }
+
+    /* ── Input Area ── */
+    #chat-input-area {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      padding: 10px 12px 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    #message-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #1e293b;
+      font-size: 13.5px;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      height: 22px;
+      line-height: 22px;
+    }
+    #message-input::placeholder { color: #9ca3af; }
+    .input-icon-btn {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border: none; background: transparent; cursor: pointer;
+      color: #9ca3af;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+    .input-icon-btn:hover { color: #6c3de8; background: #f5f3ff; }
+    #send-btn {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #6c3de8, #3b82f6);
+      border: none; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    #send-btn:hover { opacity: 0.88; transform: scale(1.05); }
+    #send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+    /* ── Powered By ── */
+    #powered-by {
+      background: #ffffff;
+      border-top: 1px solid #f3f4f6;
+      text-align: center;
+      font-size: 10.5px;
+      color: #9ca3af;
+      padding: 6px 0 8px;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+    #powered-by span { color: #6c3de8; font-weight: 600; }
+
+    /* ── Onboarding Panel ── */
+    #onboarding {
+      width: 370px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+    }
+    .onboard-body { padding: 20px 18px 24px; background: #f9fafb; }
+    .field-label { font-size: 11.5px; font-weight: 500; color: #6b7280; margin-bottom: 6px; display: block; }
+    .field-input {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #1e293b;
+      font-size: 13.5px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field-input:focus { border-color: #6c3de8; box-shadow: 0 0 0 3px rgba(108,61,232,0.1); }
+    .field-input::placeholder { color: #9ca3af; }
+    .lang-row { display: flex; gap: 10px; }
+    .lang-btn {
+      flex: 1; padding: 9px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      background: #fff;
+      color: #6b7280;
+      font-size: 13px; font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .lang-btn.selected {
+      background: linear-gradient(135deg, #6c3de8, #3b82f6);
+      border-color: transparent;
+      color: #fff;
+    }
+    .start-btn {
+      width: 100%; padding: 11px;
+      background: linear-gradient(135deg, #6c3de8, #3b82f6);
+      border: none; border-radius: 11px;
+      color: #fff; font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .start-btn:hover { opacity: 0.88; }
+    .err-text { font-size: 11px; color: #ef4444; margin-top: 5px; display: none; }
+
+    /* ── Animations ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .slide-up { animation: slideUp 0.25s cubic-bezier(0.34,1.2,0.64,1) forwards; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Floating Toggle ── -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="toggle-btn" title="Chat with Sophia">
+      <svg id="toggle-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+           fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ══════════════ ONBOARDING PANEL ══════════════ -->
+  <div id="onboarding" class="hidden fixed bottom-24 right-6 z-40 slide-up">
+
+    <div class="chat-header">
+      <div class="flex items-center gap-3">
+        <div class="header-logo">P</div>
+        <div>
+          <div class="header-title">Playage AI</div>
+          <div class="header-sub"><span class="online-dot"></span>Online now</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="onboard-body">
+      <div class="msg-bot" style="margin-bottom:18px">
+        <div class="bot-avatar">S</div>
+        <div>
+          <div class="bot-bubble">
+            👋 Hey! I'm <b>Sophia</b>, your Playage support assistant.<br>
+            Tell me a bit about yourself to get started!
+          </div>
+          <div class="msg-meta">Sophia · just now</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <label class="field-label">Your Name</label>
+        <input id="onboard-name" class="field-input" type="text" maxlength="40" placeholder="e.g. Ravi, Emma..." />
+        <div id="name-error" class="err-text">Please enter your name to continue.</div>
+      </div>
+
+      <div style="margin-bottom:18px">
+        <label class="field-label">Preferred Language</label>
+        <div class="lang-row">
+          <button id="lang-en" class="lang-btn selected" onclick="selectLang('En')">🇬🇧 English</button>
+          <button id="lang-tr" class="lang-btn" onclick="selectLang('Tr')">🇹🇷 Türkçe</button>
+        </div>
+      </div>
+
+      <button class="start-btn" onclick="submitOnboarding()">Start Chatting →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ CHAT PANEL ══════════════ -->
+  <div id="chat-window" class="hidden fixed bottom-24 right-6 z-40 slide-up">
+
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="flex items-center gap-3">
+        <div class="header-logo">P</div>
+        <div>
+          <div class="header-title">Playage AI</div>
+          <div class="header-sub" id="header-sub"><span class="online-dot"></span>Online now</div>
+        </div>
+      </div>
+      <button onclick="restartChat()" title="Restart / Change Profile"
+        style="background:rgba(255,255,255,0.12);border:none;border-radius:8px;padding:6px;cursor:pointer;color:#a5b4fc;display:flex;align-items:center;transition:background 0.15s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.22)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages"></div>
+
+    <!-- Quick Replies -->
+    <div id="quick-replies">
+      <button class="qr-chip" onclick="quickSend(this)">How to deposit?</button>
+      <button class="qr-chip" onclick="quickSend(this)">Withdrawal help</button>
+      <button class="qr-chip" onclick="quickSend(this)">Bonus & rewards</button>
+      <button class="qr-chip" onclick="quickSend(this)">Account issue</button>
+      <button class="qr-chip" onclick="quickSend(this)">Game rules</button>
+    </div>
+
+    <!-- Input -->
+    <div id="chat-input-area">
+      <button class="input-icon-btn" title="Voice (coming soon)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </button>
+
+      <input id="message-input" type="text" placeholder="Send message" maxlength="300" autocomplete="off" />
+
+      <button class="input-icon-btn" title="Emoji (coming soon)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 13s1.5 2 4 2 4-2 4-2"/>
+          <line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+        </svg>
+      </button>
+
+      <button id="send-btn" onclick="sendMessage()" title="Send">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 24 24">
+          <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Powered by -->
+    <div id="powered-by">Powered by <span>Playage AI</span></div>
+  </div>
+
+
+  <script>
+    // ── Storage & Session ────────────────────────────────────────
+    const STORAGE_KEY = 'playage_user';
+    const sessionId   = `session_${crypto.randomUUID()}`;
+
+    let profile     = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    let username    = profile?.username || null;
+    let userLang    = profile?.userLang || 'En';
+    let onboardDone = !!profile;
+    let pendingLang = userLang;
+    let isOpen      = false;
+
+    // ── DOM ──────────────────────────────────────────────────────
+    const onboardPanel = document.getElementById('onboarding');
+    const chatPanel    = document.getElementById('chat-window');
+    const toggleBtn    = document.getElementById('toggle-btn');
+    const chatMessages = document.getElementById('chat-messages');
+    const msgInput     = document.getElementById('message-input');
+    const sendBtn      = document.getElementById('send-btn');
+
+    // ── Toggle ───────────────────────────────────────────────────
+    toggleBtn.addEventListener('click', () => {
+      if (isOpen) { closeAll(); }
+      else { onboardDone ? openChat() : openOnboard(); toggleBtn.classList.add('open'); isOpen = true; }
+    });
+    function closeAll() {
+      onboardPanel.classList.add('hidden'); chatPanel.classList.add('hidden');
+      toggleBtn.classList.remove('open'); isOpen = false;
+    }
+
+    // ── Onboarding ───────────────────────────────────────────────
+    function openOnboard() {
+      chatPanel.classList.add('hidden');
+      onboardPanel.classList.remove('hidden');
+    }
+    function selectLang(lang) {
+      pendingLang = lang;
+      document.getElementById('lang-en').classList.toggle('selected', lang === 'En');
+      document.getElementById('lang-tr').classList.toggle('selected', lang === 'Tr');
+    }
+    function submitOnboarding() {
+      const nameVal = document.getElementById('onboard-name').value.trim();
+      const nameErr = document.getElementById('name-error');
+      if (!nameVal) { nameErr.style.display = 'block'; return; }
+      nameErr.style.display = 'none';
+      username = nameVal; userLang = pendingLang;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ username, userLang }));
+      onboardDone = true;
+      onboardPanel.classList.add('hidden');
+      openChat();
+    }
+
+    // ── Chat ─────────────────────────────────────────────────────
+    function openChat() {
+      chatPanel.classList.remove('hidden');
+      if (chatMessages.children.length === 0) {
+        const greeting = userLang === 'Tr'
+          ? `Merhaba <b>${username}</b>! 👋 Playage hakkında nasıl yardımcı olabilirim?`
+          : `Hey <b>${username}</b>! 👋 How can I help you with Playage today?`;
+        appendBotBubble(greeting);
+      }
+      document.getElementById('header-sub').innerHTML =
+        `<span class="online-dot"></span>Hi, ${username}`;
+      msgInput.focus();
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────
+    function appendBotBubble(html) {
+      const wrap = document.createElement('div');
+      wrap.className = 'msg-bot';
+      const now = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+      wrap.innerHTML = `
+        <div class="bot-avatar">S</div>
+        <div>
+          <div class="bot-bubble">${html}</div>
+          <div class="msg-meta">Sophia · ${now}</div>
+        </div>`;
+      chatMessages.appendChild(wrap);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function appendBotTyping(text) {
+      const wrap = document.createElement('div'); wrap.className = 'msg-bot';
+      const avatar = document.createElement('div'); avatar.className = 'bot-avatar'; avatar.textContent = 'S';
+      const inner  = document.createElement('div');
+      const bubble = document.createElement('div'); bubble.className = 'bot-bubble';
+      const meta   = document.createElement('div'); meta.className = 'msg-meta';
+      inner.appendChild(bubble); inner.appendChild(meta);
+      wrap.appendChild(avatar); wrap.appendChild(inner);
+      chatMessages.appendChild(wrap);
+
+      for (let i = 0; i < text.length; i++) {
+        bubble.innerHTML = marked.parse(text.substring(0, i + 1));
+        await new Promise(r => setTimeout(r, 18));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      meta.textContent = `Sophia · ${new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })}`;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div'); div.className = 'msg-bot'; div.id = 'typing-indicator';
+      div.innerHTML = `
+        <div class="bot-avatar">S</div>
+        <div class="bot-bubble" style="padding:12px 16px">
+          <div class="typing-dots"><span></span><span></span><span></span></div>
+        </div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function hideTyping() { const el = document.getElementById('typing-indicator'); if (el) el.remove(); }
+
+    function quickSend(btn) { msgInput.value = btn.textContent.trim(); sendMessage(); }
+
+    // ── Send ─────────────────────────────────────────────────────
+    msgInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+
+    async function sendMessage() {
+      const text = msgInput.value.trim();
+      if (!text || text.length > 300) return;
+
+      const uDiv = document.createElement('div'); uDiv.className = 'msg-user';
+      uDiv.innerHTML = `<div class="user-bubble">${text.replace(/</g,'&lt;')}</div>`;
+      chatMessages.appendChild(uDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      msgInput.value = ''; sendBtn.disabled = true;
+      showTyping();
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId, message: text, username, user_lang: userLang, context: 'customer_support' })
+        });
+        const data = await res.json();
+        hideTyping();
+        await appendBotTyping(data.reply || "Sorry, I couldn't understand that.");
+      } catch {
+        hideTyping();
+        appendBotBubble("⚠️ Unable to reach the server. Please try again.");
+      } finally {
+        sendBtn.disabled = false; msgInput.focus();
+      }
+    }
+
+    // ── Restart ──────────────────────────────────────────────────
+    function restartChat() {
+      localStorage.removeItem(STORAGE_KEY);
+      onboardDone = false; username = null; userLang = 'En'; pendingLang = 'En';
+      document.getElementById('onboard-name').value = '';
+      selectLang('En'); chatMessages.innerHTML = '';
+      chatPanel.classList.add('hidden');
+      openOnboard();
+    }
+  </script>
+</body>
+</html>

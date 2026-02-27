@@ -10487,3 +10487,11 @@ TypeError: process_user_message() got an unexpected keyword argument 'mode'
 2026-02-24 11:11:03.561 | INFO     | main:chat_api:65 - Incoming chat: [session=session_ac5c648b-555b-4df1-b45b-2bb6096f2ccc] (Ravi) (En), msg=How to deposit?
 2026-02-24 11:11:11.545 | INFO     | main:chat_api:74 - Chat response sent for session=session_ac5c648b-555b-4df1-b45b-2bb6096f2ccc
 2026-02-24 11:11:11.546 | INFO     | main:log_request_time:43 - POST http://127.0.0.1:8000/chat completed in 7.99s
+2026-02-24 14:36:57.715 | INFO     | main:log_request_time:43 - GET http://127.0.0.1:8000/docs completed in 0.00s
+2026-02-24 14:36:58.604 | INFO     | main:log_request_time:43 - GET http://127.0.0.1:8000/openapi.json completed in 0.01s
+2026-02-24 14:37:40.129 | INFO     | main:chat_api:65 - Incoming chat: [session=abc@123] (tom) (En), msg=hello can you help me ?
+2026-02-24 14:37:43.108 | INFO     | main:chat_api:74 - Chat response sent for session=abc@123
+2026-02-24 14:37:43.109 | INFO     | main:log_request_time:43 - POST http://127.0.0.1:8000/chat completed in 2.98s
+2026-02-24 14:38:10.482 | INFO     | main:chat_api:65 - Incoming chat: [session=abc@123] (tom) (En), msg=actully i want to logout but i dont know from where ?
+2026-02-24 14:38:17.959 | INFO     | main:chat_api:74 - Chat response sent for session=abc@123
+2026-02-24 14:38:17.960 | INFO     | main:log_request_time:43 - POST http://127.0.0.1:8000/chat completed in 7.48s

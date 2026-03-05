@@ -1,0 +1,8 @@
+.env
+requirements_backup.txt
+
+# Folders
+__pycache__/
+Playage_RAG_ENV/
+dist/
+node_modules/

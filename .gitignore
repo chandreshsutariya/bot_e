@@ -6,3 +6,14 @@ __pycache__/
 Playage_RAG_ENV/
 dist/
 node_modules/
+Frontend/node_modules/
+Frontend/dist/
+
+# FAISS / embeddings
+*.faiss
+*.pkl
+
+
+# Env
+.env
+myenv/

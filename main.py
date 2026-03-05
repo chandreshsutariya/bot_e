@@ -230,12 +230,18 @@ def build_context(docs) -> str:
         )
 
         if total + len(block) > MAX_CONTEXT_CHARS:
+            print("[Context length exceeded, stopping concatenation]")
             break
 
         parts.append(block)
         total += len(block)
 
-    return "\n\n".join(parts)
+    final_context = "\n\n".join(parts)
+    print("\n=== FINAL CONTEXT SENT TO LLM ===")
+    print(final_context)
+    print("=================================\n")
+
+    return final_context
 
 
 # -----------------------------

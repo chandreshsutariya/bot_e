@@ -170,6 +170,11 @@ def answer_question(question: str, print_debug: bool = False) -> str:
         for d in docs
     )
 
+    if print_debug:
+        print("\n=== FINAL CONTEXT SENT TO LLM ===")
+        print(context)
+        print("=================================\n")
+
     # 4️⃣ LLM answer
     response = llm.invoke(
         HYBRID_PROMPT.format(

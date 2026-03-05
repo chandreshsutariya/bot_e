@@ -1,0 +1,2231 @@
+[
+  {
+    "doc_id": "root",
+    "url": "https://userguide.playagegaming.tech/en/bo/",
+    "module": "bo",
+    "category": null,
+    "topic_id": null,
+    "level": 0,
+    "priority": 1.0,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": [
+      {
+        "heading": "Introduction",
+        "text": "Live 6 guides"
+      },
+      {
+        "heading": "System Configuration",
+        "text": "Partner setup, templates, bonus, events, and maintenance."
+      }
+    ]
+  },
+  {
+    "doc_id": "introduction-and-scope/1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/introduction-and-scope/1-1/",
+    "module": "bo",
+    "category": "introduction-and-scope",
+    "topic_id": "1-1",
+    "level": 2,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Scope and Purpose",
+    "sections": [
+      {
+        "heading": "Scope and Purpose",
+        "text": "Use this page to understand what Back Office covers, who uses it, and how this documentation should be consumed."
+      },
+      {
+        "heading": "Overview",
+        "text": "Playage Back Office is the central operational console for day-to-day platform administration. It brings operations, finance, support, reporting, and configuration workflows into one controlled environment."
+      },
+      {
+        "heading": "Purpose",
+        "text": "The Back Office exists to keep operations:\nReliable in real-time execution\nTraceable through audit-ready workflows\nGoverned by role-based permissions\nScalable across teams and regions"
+      },
+      {
+        "heading": "Scope",
+        "text": "This documentation covers the core BO domains:\nGetting started and secure access\nPlayer and user operations\nReporting and analytics modules\nFinancial reporting and reconciliation support\nOperations/support handling workflows\nSystem and admin-level configuration controls"
+      },
+      {
+        "heading": "Intended Audience",
+        "text": "BO administrators and team leads\nOperations and support teams\nFinance and reconciliation teams\nCompliance and risk reviewers\nProduct and configuration owners"
+      },
+      {
+        "heading": "How to Use This Guide",
+        "text": "Start from the BO home section and choose your functional area.\nFollow pages in the recommended order inside each section.\nUse filter and validation checklists before exporting critical reports.\nApply troubleshooting steps before escalating."
+      },
+      {
+        "heading": "Success Criteria",
+        "text": "A reader should be able to:\nPerform daily BO tasks with minimal confusion\nValidate outputs before decision making\nEscalate only when required, with complete context\nKeep workflows consistent across teams"
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Treat this documentation as an operational runbook: update it whenever process or policy changes happen."
+      }
+    ]
+  },
+  {
+    "doc_id": "getting-started",
+    "url": "https://userguide.playagegaming.tech/en/bo/getting-started/",
+    "module": "bo",
+    "category": "getting-started",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "player-management",
+    "url": "https://userguide.playagegaming.tech/en/bo/player-management/",
+    "module": "bo",
+    "category": "player-management",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "user-management",
+    "url": "https://userguide.playagegaming.tech/en/bo/user-management/",
+    "module": "bo",
+    "category": "user-management",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "reporting-and-analytics",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "financial-reports",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "operations-and-support",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "system-configuration",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "admin-settings",
+    "url": "https://userguide.playagegaming.tech/en/bo/admin-settings/",
+    "module": "bo",
+    "category": "admin-settings",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.8,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "introduction-and-scope",
+    "url": "https://userguide.playagegaming.tech/en/bo/introduction-and-scope/",
+    "module": "bo",
+    "category": "introduction-and-scope",
+    "topic_id": null,
+    "level": 1,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": []
+  },
+  {
+    "doc_id": "getting-started/2-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/getting-started/2-1/",
+    "module": "bo",
+    "category": "getting-started",
+    "topic_id": "2-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Getting Started",
+    "sections": [
+      {
+        "heading": "Getting Started",
+        "text": "Use this section to complete the first Back Office access flow with the correct sequence and minimum risk."
+      },
+      {
+        "heading": "Scope",
+        "text": "This guide covers:\nLogin and authentication checks\nPlatform selection after login\nFirst dashboard validation\nInitial access verification for operations"
+      },
+      {
+        "heading": "Before You Start",
+        "text": "Confirm you are using the correct environment URL (staging or production).\nEnsure your account is active and assigned to the correct role.\nKeep 2FA device/app ready if your account requires OTP.\nAvoid shared browsers for admin access."
+      },
+      {
+        "heading": "Recommended Reading Order",
+        "text": "Login and Authentication\nAdministration Dashboard\nAdmin Back Office Dashboard"
+      },
+      {
+        "heading": "Expected Result",
+        "text": "After completing this section, you should be able to:\nSign in successfully\nOpen Back Office from the platform selector\nValidate key dashboard widgets and menu visibility\nConfirm your role-based access is correct"
+      },
+      {
+        "heading": "Common Issues During Onboarding",
+        "text": "Login URL opens wrong environment : verify domain and saved bookmarks.\nBackoffice card is missing : role permission or module mapping is incomplete.\nPartial menu visibility : account policy changed and requires re-login."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep this section as a standard onboarding checklist for every new admin.\nRe-run this checklist after role updates, policy changes, or environment switch."
+      }
+    ]
+  },
+  {
+    "doc_id": "getting-started/2-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/getting-started/2-1-1/",
+    "module": "bo",
+    "category": "getting-started",
+    "topic_id": "2-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Login and Authentication",
+    "sections": [
+      {
+        "heading": "Login and Authentication",
+        "text": "Use this flow to sign in securely and verify your Back Office session is valid."
+      },
+      {
+        "heading": "When to Use",
+        "text": "First login of the day\nNew user onboarding\nAccess verification after password or role changes"
+      },
+      {
+        "heading": "Login Screen",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-1-1/dewli5h8qbniz923-embedded-image-lomvc7zx-8c8de41e.webp"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open the official Back Office URL.\nVerify domain + https:// .\nEnter registered email.\nEnter password.\nClick Sign In .\nComplete OTP/2FA if prompted.\nWait for redirect to dashboard selector."
+      },
+      {
+        "heading": "Field Notes",
+        "text": "Email : Must match the admin account.\nPassword : Case-sensitive.\nForgot Password : Use reset flow if enabled.\nReference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-1-1/czcrnluygh01siwi-image-27b2fd6a.webp"
+      },
+      {
+        "heading": "Expected Result",
+        "text": "Account opens without errors.\nCorrect modules are visible for your role.\nSession remains stable (no instant logout)."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Invalid credentials : Check keyboard layout, caps, and email typo.\n2FA failure : Sync device time and generate a fresh OTP.\nAccount locked : Request unlock from system admin.\nRedirect loop : Clear site cookies and sign in again."
+      },
+      {
+        "heading": "Security Tips",
+        "text": "Never share password/OTP.\nAvoid shared or unmanaged devices.\nAlways sign out after sensitive operations."
+      }
+    ]
+  },
+  {
+    "doc_id": "getting-started/2-2-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/getting-started/2-2-1/",
+    "module": "bo",
+    "category": "getting-started",
+    "topic_id": "2-2-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Administration Dashboard",
+    "sections": [
+      {
+        "heading": "Administration Dashboard",
+        "text": "After login, this page lets you choose which platform module to open."
+      },
+      {
+        "heading": "Purpose",
+        "text": "Use this step to enter Back Office with the correct role context."
+      },
+      {
+        "heading": "Platform Selector",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-2-1/qqfg9v2od29ghn08-embedded-image-kqeemioc-fea0e76e.webp"
+      },
+      {
+        "heading": "Card Overview",
+        "text": "Back Office : Users, operations, finance, reports, settings.\nCMS : Content, media, and publishing workflows.\nBAS : KPI and analytics insights."
+      },
+      {
+        "heading": "Steps to Open Back Office",
+        "text": "Locate the Backoffice card.\nConfirm access is available for your user role.\nClick Access Dashboard .\nWait for redirect to BO dashboard.\nReference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-2-1/0rvxfpk6sgkdcjen-image-0b94e834.webp"
+      },
+      {
+        "heading": "Validation",
+        "text": "BO dashboard loads fully.\nExpected menu groups are visible.\nRestricted modules remain hidden."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Card missing : Module not assigned to role.\nCard not opening : Session expired or browser blocking scripts.\nPermission error after open : Role policy updated; re-sync access."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep least-privilege role mapping.\nUse separate accounts when BO and CMS duties differ."
+      }
+    ]
+  },
+  {
+    "doc_id": "getting-started/2-3-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/getting-started/2-3-1/",
+    "module": "bo",
+    "category": "getting-started",
+    "topic_id": "2-3-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Admin Back Office Dashboard",
+    "sections": [
+      {
+        "heading": "Admin Back Office Dashboard",
+        "text": "This page explains how to read and validate the main BO dashboard at shift start."
+      },
+      {
+        "heading": "Purpose",
+        "text": "Monitor high-level KPIs\nConfirm daily operations are healthy\nNavigate quickly to detail modules"
+      },
+      {
+        "heading": "Dashboard Overview",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-3-1/KI0zPgivP3F0dU7v-image.webp"
+      },
+      {
+        "heading": "Top Navigation",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-3-1/vc5mz2hvd9e8rmsv-ishot-2025-10-31-15-58--f02c3dd3.webp\nSwitch between major modules from top tabs.\nOpen child pages from dropdown menus.\nReturn to dashboard via logo/home."
+      },
+      {
+        "heading": "Date Filters",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-3-1/3kdkulqwpeb1dk8y-image-85b7a196.webp\nUse quick presets for routine checks.\nUse custom range for reconciliation windows.\nRe-apply date filter before comparing reports."
+      },
+      {
+        "heading": "KPI Cards",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-3-1/is0ycx8uadmflevb-image-f9e645e7.webp\nhttps://userguide.playagegaming.tech/img/bo/getting-started/2-3-1/z2znpjtrx8ybckjx-image-6a8fc00a.webp\nTrack:\nDeposits and withdrawals\nActive users and traffic movement\nProfit/balance indicators\nBonus impact"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Stale widgets : Re-apply filter + refresh page.\nMismatch with reports : Check same date range/timezone.\nMissing modules : Verify role permissions and re-login."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Run a short dashboard validation at the start of each shift before taking operations actions."
+      }
+    ]
+  },
+  {
+    "doc_id": "player-management/3-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/player-management/3-1-1/",
+    "module": "bo",
+    "category": "player-management",
+    "topic_id": "3-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Player Management and Analytics",
+    "sections": [
+      {
+        "heading": "Player Management and Analytics",
+        "text": "This page is used to monitor player accounts, activity, and operational player data."
+      },
+      {
+        "heading": "Screen Layout",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-1/qddjrkg0gvfepewm-image-43595ed3.webp\nMain areas:\nFilters and search controls\nRefresh action for data load\nPlayer data table\nPagination and result controls"
+      },
+      {
+        "heading": "Standard Workflow",
+        "text": "Open Player Management dashboard.\nApply required filters (date, segment, status).\nClick Refresh to load latest records.\nReview player table and activity indicators."
+      },
+      {
+        "heading": "Refresh and Data Loading",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-1/xuqwloklrrrtrwng-image-4b1aa2b4.webp\nIf table is empty on first load, use Refresh .\nRefresh pulls updated data from API/server.\nRe-run refresh after changing filter criteria."
+      },
+      {
+        "heading": "Player Table Review",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-1/qv8ymt4fubthm5yu-image-eeed3c14.webp\nTypical fields include:\nPlayer ID and username\nVerification state\nContact and profile data\nLogin/activity markers\nBalance indicators"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "No data after refresh : Clear filters and retry with wider date range.\nSlow table loading : Reduce date span and use narrower filters.\nUnexpected player values : Verify active currency/filter settings."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Filter first, then refresh for large datasets.\nReview anomalies (login spikes, status changes) daily.\nKeep access audits aligned with compliance requirements."
+      }
+    ]
+  },
+  {
+    "doc_id": "player-management/3-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/player-management/3-1-2/",
+    "module": "bo",
+    "category": "player-management",
+    "topic_id": "3-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Player Document Management",
+    "sections": [
+      {
+        "heading": "Player Document Management",
+        "text": "This page is used to review uploaded player documents and take compliance actions."
+      },
+      {
+        "heading": "Screen Layout",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-2/ejkdgonvjdnf1cri-image-da210254.webp\nCore areas:\nDocument list table\nDocument status fields\nAction column with view/review options"
+      },
+      {
+        "heading": "Open Document Details",
+        "text": "Find target row in document table.\nClick View (eye icon) from actions.\nReview document details and metadata."
+      },
+      {
+        "heading": "Document Preview and Actions",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-2/kw6zxiirj1smhkht-image-af207d3e.webp\nPossible actions (based on role/status):\nVerify/review details\nReject document for re-verification\nDelete document (authorized roles only)"
+      },
+      {
+        "heading": "Typical Use Cases",
+        "text": "KYC verification checks\nDocument quality and mismatch review\nCompliance review before approval"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "View popup not opening : Check row permissions and retry after refresh.\nStatus not updated : Confirm action saved and reload table.\nWrong player document shown : Validate selected row and document ID."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use reject with clear reason for audit clarity.\nRestrict delete actions to limited admin roles."
+      }
+    ]
+  },
+  {
+    "doc_id": "player-management/3-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/player-management/3-1-3/",
+    "module": "bo",
+    "category": "player-management",
+    "topic_id": "3-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Player Performance and Conversion Analytics",
+    "sections": [
+      {
+        "heading": "Player Performance and Conversion Analytics",
+        "text": "This report measures conversion performance from registration to deposit activity."
+      },
+      {
+        "heading": "Conversion Report Screen",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-3/siq8vu2tigghkdat-image-918bc33c.webp\nMain metrics:\nRegistered users\nDepositing users\nDeposit count and total amount\nAverage deposit amount"
+      },
+      {
+        "heading": "Workflow",
+        "text": "Open conversion report page.\nApply filters (date range, currency, source).\nReview conversion metrics and trends.\nExport filtered results if required."
+      },
+      {
+        "heading": "Export Options",
+        "text": "CSV for quick data sharing/integration.\nXLS for spreadsheet analysis."
+      },
+      {
+        "heading": "Typical Use Cases",
+        "text": "Campaign conversion measurement\nDeposit behavior comparison\nSegment-level conversion tracking"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Metrics look incorrect : Recheck filters and active date range.\nExport missing rows : Confirm table is fully filtered as intended.\nNumbers differ from finance report : Validate report scope and timezone."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Lock a standard filter set for recurring monthly comparisons.\nDocument the export criteria used in decision reports."
+      }
+    ]
+  },
+  {
+    "doc_id": "player-management/3-1-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/player-management/3-1-4/",
+    "module": "bo",
+    "category": "player-management",
+    "topic_id": "3-1-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Player KPI Reporting",
+    "sections": [
+      {
+        "heading": "Player KPI Reporting",
+        "text": "This page provides KPI-level player performance reporting in tabular format."
+      },
+      {
+        "heading": "KPI Screen",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-4/g9ydce6rcaox4j2o-image-a09485bf.webp\nCommon KPI data:\nPlayer identity and verification\nBetting totals and stake values\nSettled/unsettled metrics\nMulti-currency totals"
+      },
+      {
+        "heading": "Workflow",
+        "text": "Open KPI reporting page.\nApply optional filters.\nReview KPI rows and outliers.\nExport report for analysis."
+      },
+      {
+        "heading": "Export",
+        "text": "CSV for system-to-system usage.\nXLS for operations/finance review."
+      },
+      {
+        "heading": "Typical Use Cases",
+        "text": "Verified player behavior comparison\nKPI trend review by period\nInternal analytics and performance packs"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "KPI rows missing : Check verification/status/date filters.\nSlow report load : Reduce range and split queries by segment.\nMismatch with dashboard totals : Confirm same time window and filters."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use consistent reporting windows for KPI comparisons.\nKeep export rights limited to analytics/admin roles."
+      }
+    ]
+  },
+  {
+    "doc_id": "player-management/3-1-5",
+    "url": "https://userguide.playagegaming.tech/en/bo/player-management/3-1-5/",
+    "module": "bo",
+    "category": "player-management",
+    "topic_id": "3-1-5",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Self-Excluded Client Management",
+    "sections": [
+      {
+        "heading": "Self-Excluded Client Management",
+        "text": "This page is used to manage responsible gaming self-exclusion cases."
+      },
+      {
+        "heading": "Self-Exclusion Screen",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/player-management/3-1-5/yxm2kvu2hsmgdnsa-image-fc72e659.webp\nMain capabilities:\nView active and archived excluded clients\nFilter by user/type/period\nTrack status and expiry timeline\nExport records for compliance review"
+      },
+      {
+        "heading": "Standard Workflow",
+        "text": "Open self-exclusion module.\nApply filters for target case set.\nReview status, reason, and expiry timeline.\nProcess reactivation only after policy checks."
+      },
+      {
+        "heading": "Compliance Handling",
+        "text": "Keep complete audit trail for each case update.\nApply role-based control for modification actions.\nUse dual approval where required by policy."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Client still active after exclusion : Trigger sync and verify policy application.\nCase not visible : Expand filters and check status tab.\nReactivation blocked : Confirm mandatory approvals are completed."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Run periodic expiry reviews.\nArchive exports for regulatory audits."
+      }
+    ]
+  },
+  {
+    "doc_id": "user-management/4-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/user-management/4-1-1/",
+    "module": "bo",
+    "category": "user-management",
+    "topic_id": "4-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "User List",
+    "sections": [
+      {
+        "heading": "User List",
+        "text": "The User List page is used to create, update, and control Back Office users."
+      },
+      {
+        "heading": "Screen Layout",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-1/x7nbphctczq70dbn-image-0bd7c7e2.webp\nMain areas:\nSearch box (name, email, username)\nStatus filters\nUser table\nRow actions (edit/deactivate/details)\nAdd New button"
+      },
+      {
+        "heading": "Add New User",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-1/l13wardh6f3remhn-image-160eae25.webp\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-1/xfmad3gdhf9sfbdl-image-584e3d9c.webp\nClick Add New .\nEnter username/email and password.\nFill first name and last name.\nOptional: enable Must Change Password .\nClick Save ."
+      },
+      {
+        "heading": "Assign Role and Permissions",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-1/0ruyjsott5d7f3mn-image-6cdf7280.webp\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-1/q0uho9gtxa5jjgeo-image-d45eca45.webp\nOpen the user from row actions.\nSelect required role.\nUpdate module permissions.\nSave changes."
+      },
+      {
+        "heading": "Common Admin Tasks",
+        "text": "Edit profile details for existing users.\nDeactivate users who should not access the system.\nReview role scope after organizational changes."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "User not visible in table : Clear filters and search by exact username/email.\nSave button does not create user : Check required fields and duplicate username.\nUser cannot access expected module : Recheck role assignment and permission toggles."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Apply least-privilege role design.\nKeep 2FA enabled for high-privilege users.\nReview inactive users regularly."
+      }
+    ]
+  },
+  {
+    "doc_id": "user-management/4-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/user-management/4-1-2/",
+    "module": "bo",
+    "category": "user-management",
+    "topic_id": "4-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Role and Permission Management",
+    "sections": [
+      {
+        "heading": "Role and Permission Management",
+        "text": "This page controls role creation and access distribution across Back Office modules."
+      },
+      {
+        "heading": "Screen Layout",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-2/vstgfzsde8w8uets-image-9502669b.webp\nYou can review:\nRole name\nAssigned user count\nLast update time\nEdit/Delete actions"
+      },
+      {
+        "heading": "Create a New Role",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-2/aztqpjq6a5nktpa2-image-294c52ea.webp\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-2/hljv0w5lsk33ogjh-embedded-image-pjkos1ts-edaf7202.webp\nClick Add Role .\nEnter role name.\nEnable permissions by module.\nSave role."
+      },
+      {
+        "heading": "Edit or Delete Role",
+        "text": "Edit : update module permissions or role scope.\nDelete : allowed only when no users are assigned."
+      },
+      {
+        "heading": "Recommended Workflow",
+        "text": "Create role first.\nTest role on one user account.\nConfirm module visibility.\nRoll out to remaining users."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Role not assignable in user form : Refresh page after role creation.\nPermission change not reflected : Re-login affected user session.\nDelete role blocked : Remove linked users first."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep roles business-function based (Support, Finance, Compliance).\nAvoid direct ad-hoc permission changes without role review."
+      }
+    ]
+  },
+  {
+    "doc_id": "user-management/4-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/user-management/4-1-3/",
+    "module": "bo",
+    "category": "user-management",
+    "topic_id": "4-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Login History",
+    "sections": [
+      {
+        "heading": "Login History",
+        "text": "Use this page to monitor login behavior, failed attempts, and security access patterns."
+      },
+      {
+        "heading": "Login History Screen",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-3/0und0azqvmme3xya-image-7efe1475.webp\nCore columns:\nUsername\nLogin time\nLogout time\nIP address\nBrowser/device\nStatus (success, failed, blocked)"
+      },
+      {
+        "heading": "How to Audit Login Activity",
+        "text": "Filter by date range.\nFilter by status ( Failed / Blocked ) for risk checks.\nReview repeated attempts from same IP.\nExport selected records for compliance archive."
+      },
+      {
+        "heading": "Typical Use Cases",
+        "text": "Security review after suspicious login reports.\nCompliance export for periodic audit.\nTroubleshooting user access complaints."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "No records after filtering : Expand date range and clear status filter.\nWrong timezone interpretation : Confirm server/report timezone standard.\nUser says login failed but no logs : Verify correct username and environment."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Restrict this page to admin/compliance users.\nInvestigate repeated failed attempts quickly.\nKeep periodic exported snapshots for audit trail."
+      }
+    ]
+  },
+  {
+    "doc_id": "user-management/4-1-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/user-management/4-1-4/",
+    "module": "bo",
+    "category": "user-management",
+    "topic_id": "4-1-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Checked Documents by User",
+    "sections": [
+      {
+        "heading": "Checked Documents by User",
+        "text": "This report tracks user-level access to sensitive player documents."
+      },
+      {
+        "heading": "Document Access Screen",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/user-management/4-1-4/c9jzrcej1k2hxnkf-image-2c97b47f.webp\nAvailable controls:\nUser filter\nDocument-type filter\nDate-range filter\nExport (CSV/XLS)"
+      },
+      {
+        "heading": "Reporting Workflow",
+        "text": "Select required date range.\nFilter by user or document type.\nReview access actions (viewed/downloaded/verified).\nExport report for audit or compliance team."
+      },
+      {
+        "heading": "When to Use This Report",
+        "text": "Internal access-control review.\nCompliance checks on document handling.\nInvestigation of unusual document access events."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Report looks empty : Clear filters and rerun with wider date range.\nExport file missing rows : Verify active filters before download.\nUnexpected access entries : Cross-check with login history and role permissions."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use monthly exports for compliance archive.\nReview high-sensitivity document access with security team."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-1-1/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Sports Book Bets Report",
+    "sections": [
+      {
+        "heading": "Sports Book Bets Report",
+        "text": "Use this report for bet-level sportsbook analysis."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-1-1/a1rwa96uqkyp3kgt-image-75d0dee9.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Review individual and aggregated bet performance\nMonitor stake, payout, and margin behavior\nDetect unusual bet patterns early"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Sports Book > Bets Report .\nApply filters (date range, sport, market type, currency, status).\nReview summary KPIs and detailed rows.\nDrill into high-risk or high-value bets if needed."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bet count\nTotal stake\nWin amount / payout\nGross win / margin\nActive bettors"
+      },
+      {
+        "heading": "Export",
+        "text": "Export after finalizing filters.\nUse CSV/XLS for reconciliation.\nUse PDF for management sharing."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Data mismatch : check timezone and same filter set.\nNo rows returned : broaden date range and remove strict filters.\nSlow load : narrow the range and split analysis by sport."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Start with a broad daily range, then drill down by sport/market to identify variance drivers."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-1-2/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Sports Book Sports Report",
+    "sections": [
+      {
+        "heading": "Sports Book Sports Report",
+        "text": "Use this report to compare sportsbook performance by sport category."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-1-2/b4dkpehdngg4wwfk-image-d35e8750.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Compare football, basketball, and other sports performance\nIdentify top and underperforming sport segments\nSupport event-level and campaign-level decisions"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Sports Book > Sports Report .\nSelect date range, provider, sport, and optional bonus filters.\nApply filters and review totals.\nCompare trends across sports before exporting."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bet volume per sport\nStake and payout by sport\nGross gaming revenue (GGR)\nProfit/loss contribution"
+      },
+      {
+        "heading": "Export",
+        "text": "Export in CSV/XLS for deeper analysis.\nUse PDF for snapshot reporting."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Unexpected low volume : verify selected provider and currency.\nTotals differ from bet report : align status and date filters.\nPartial visibility : role access may restrict certain sports/providers."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use this page with Bets Report together: first find anomaly at sport level, then validate at bet level."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-1-3/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Sportsbook Competitions Report",
+    "sections": [
+      {
+        "heading": "Sportsbook Competitions Report",
+        "text": "Use this report for competition-level sportsbook monitoring."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-1-3/l2y8z8d0m9pk8sfe-image-12865330.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Measure betting performance per competition\nTrack user engagement across leagues/events\nEvaluate competition-level profitability"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Sports Book > Competitions Report .\nApply date range, sport, competition, provider, and currency filters.\nReview competition KPIs and ranking.\nExport selected view for operations/audit."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bets and turnover per competition\nWin/payout values\nMargin and net contribution\nUser participation trend"
+      },
+      {
+        "heading": "Export",
+        "text": "Export competition snapshots for weekly planning.\nKeep filter presets consistent across periods for fair comparison."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "No expected competition : check date window and sport filter.\nPerformance spikes : verify if promo/event period overlaps.\nExport differs from screen : refresh and re-apply filters before export."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Review by short periods (daily/weekly) to detect sudden competition volatility early."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-1-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-1-4/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-1-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Sportsbook Market Analysis",
+    "sections": [
+      {
+        "heading": "Sportsbook Market Analysis",
+        "text": "Use this report to analyze sportsbook market-type behavior."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-1-4/eetrzhszw9clqhoz-image-12d676a7.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Compare market types by turnover and profitability\nIdentify high-risk/high-margin market segments\nSupport odds and exposure control decisions"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Sports Book > Market Analysis .\nSelect date range and market-type filters.\nApply provider/sport/currency filters as needed.\nCompare market-level outcomes and export."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bet count by market type\nStake, payout, and net margin\nWin ratio distribution\nMarket-level volatility indicators"
+      },
+      {
+        "heading": "Export",
+        "text": "Use XLS/CSV for market-level modeling.\nExport PDF for summary communication."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Missing market types : role scope or sport filter may limit results.\nHigh variance day-to-day : compare equivalent time windows only.\nLoad issues : reduce date range and disable non-essential filters."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Standardize filter sets for recurring market reviews to maintain comparable trends."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-2-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-2-1/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-2-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Casino Report by Game",
+    "sections": [
+      {
+        "heading": "Casino Report by Game",
+        "text": "Use this report to evaluate performance at game level."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-2-1/ttnxx7oocvxwuuvp-image-ca616812.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Identify top and low-performing games\nTrack turnover, win, and margin by game\nSupport game-level optimization decisions"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Casino > Report by Game .\nApply date, provider, game category, and game filters.\nReview game-level KPIs.\nSort by turnover/margin to prioritize analysis."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bets and turnover per game\nPayout and net revenue\nMargin trend\nActive player count"
+      },
+      {
+        "heading": "Export",
+        "text": "Export filtered dataset in CSV/XLS for deeper analysis.\nUse PDF for quick summaries."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Game not listed : check provider, category, and date filters.\nTotals mismatch : align status/date/timezone across reports.\nLarge dataset : split by provider or category."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Review top games daily and long-tail games weekly to balance speed and depth."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-2-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-2-2/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-2-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Casino Report by Partner",
+    "sections": [
+      {
+        "heading": "Casino Report by Partner",
+        "text": "Use this report to compare casino performance across partners."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-2-2/gx3buyvbwqh6trsj-image-af12936a.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Measure partner-level business contribution\nCompare profitability and activity across partner segments\nSupport account management and partner reviews"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Casino > Report by Partner .\nApply date, partner, provider, and currency filters.\nCompare partner KPIs.\nExport partner snapshots for review meetings."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bet volume by partner\nTurnover and payout totals\nNet revenue and margin\nActive users by partner"
+      },
+      {
+        "heading": "Export",
+        "text": "Use CSV/XLS for partner reconciliation.\nUse PDF for stakeholder sharing."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Partner missing : verify partner assignment and filter scope.\nLow numbers : check timezone and date interval.\nAccess denied : role may not include all partner scopes."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep a fixed weekly partner filter preset to track trend consistency."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-2-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-2-3/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-2-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Casino Report by Player",
+    "sections": [
+      {
+        "heading": "Casino Report by Player",
+        "text": "Use this report for player-level casino analysis."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-2-3/keevdnsfzbifnzf2-image-fea3857e.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Monitor high-value and high-risk player behavior\nValidate player profitability and betting patterns\nSupport risk/compliance reviews"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Casino > Report by Player .\nFilter by date, player, provider, and status.\nReview player-level KPIs.\nDrill into specific players if anomalies exist."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bets and turnover per player\nWin/loss and net contribution\nBonus impact\nFrequency/activity pattern"
+      },
+      {
+        "heading": "Export",
+        "text": "Export selected player ranges for investigation.\nKeep filter notes for repeatable audits."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Player not found : confirm player ID and selected date range.\nUnexpected values : validate whether rollback/void bets are included.\nSlow report : narrow search to targeted player segments."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use player report together with Player-Game report to confirm if variance is player-driven or game-driven."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-2-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-2-4/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-2-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Casino Report by Player-Game",
+    "sections": [
+      {
+        "heading": "Casino Report by Player-Game",
+        "text": "Use this report to analyze each player's activity per game."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-2-4/ciath72qextuzygw-image-48b6a04b.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Detect player-game concentration risks\nIdentify high-value player preferences\nCompare game performance across player segments"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Casino > Report by Player-Game .\nApply player, game, provider, and date filters.\nReview bet/win/margin at player-game row level.\nExport focused slices for fraud/risk/operations review."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bet count per player-game pair\nTurnover and payout\nNet result and margin\nEngagement concentration"
+      },
+      {
+        "heading": "Export",
+        "text": "Use CSV/XLS for model or audit workflows.\nExport after confirming column and filter selections."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Too many rows : filter by player segment or specific games.\nMismatch with player report : align included statuses and date window.\nNo data : remove restrictive combined filters."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use this page when player-level spikes need root-cause at specific game level."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-2-5",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-2-5/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-2-5",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Casino Report by Provider",
+    "sections": [
+      {
+        "heading": "Casino Report by Provider",
+        "text": "Use this report to monitor casino provider performance."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-2-5/ijlqfstbhej7l22h-image-729b6868.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Compare provider contribution and efficiency\nMeasure turnover, payout, and margin per provider\nSupport provider-level operational decisions"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Casino > Report by Provider .\nApply date, provider type, currency, and optional game filters.\nReview provider rankings and trend movements.\nExport provider report for finance/partnership review."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Turnover by provider\nWin/payout and net revenue\nMargin contribution\nActive player distribution"
+      },
+      {
+        "heading": "Export",
+        "text": "Export in CSV/XLS for comparison sheets.\nUse PDF for executive summary."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Provider totals look low : verify provider filter and date range.\nInconsistent margin : check if bonus/rollback adjustments are included.\nMissing provider rows : role scope may limit visibility."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Track providers on consistent weekly and monthly windows to separate noise from trend."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-2-6",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-2-6/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-2-6",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Casino Report by Bet",
+    "sections": [
+      {
+        "heading": "Casino Report by Bet",
+        "text": "Use this report for bet-level casino detail and anomaly checks."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-2-6/kaexfeyndvknl5z5-image-923ffe33.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Inspect casino bets at transaction granularity\nVerify payouts and margins on specific bet records\nSupport investigation and reconciliation workflows"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Casino > Report by Bet .\nApply filters (date, provider, player, game, bet status).\nReview detailed rows and suspicious patterns.\nExport selected data for audit follow-up."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Bet ID / transaction references\nStake and payout values\nNet result per bet\nStatus history (where available)"
+      },
+      {
+        "heading": "Export",
+        "text": "Prefer CSV/XLS for transaction review.\nKeep a copy of filter criteria with exported file."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "No output : widen date range and remove strict player/game filter.\nValue mismatch : confirm status inclusion (settled/void/rollback).\nPerformance issue : split analysis into smaller date windows."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use bet-level report as final verification layer after game/provider summaries."
+      }
+    ]
+  },
+  {
+    "doc_id": "reporting-and-analytics/5-3-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/reporting-and-analytics/5-3-1/",
+    "module": "bo",
+    "category": "reporting-and-analytics",
+    "topic_id": "5-3-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Live Casino Bets Management",
+    "sections": [
+      {
+        "heading": "Live Casino Bets Management",
+        "text": "Use this report to monitor live-casino betting operations in near real time."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/reporting-and-analytics/5-3-1/knylivzo14mk5qyx-image-10bbfa20.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Track live casino bet flow and operational health\nCompare provider/category performance in live sessions\nExport live-bet data for reconciliation and incident review"
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Reports > Live Casino > Bets Management .\nApply filters (provider, game category, game type, date range).\nReview live bet table and summary values.\nExport selected results."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Live bet volume\nStake and win totals\nBonus impact (if enabled)\nProvider and category contribution"
+      },
+      {
+        "heading": "Export",
+        "text": "Use CSV/XLS for operational follow-up.\nUse PDF for shift or incident reporting."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Live data delay : verify source sync and refresh interval.\nEmpty report : check if selected period has active live-casino activity.\nExport blocked : verify browser download policy."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Run this report at fixed intervals during peak hours for faster incident detection."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-1-1/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Financial Payments by Region",
+    "sections": [
+      {
+        "heading": "Financial Payments by Region",
+        "text": "Use this report to compare payment performance across regions/countries."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-1-1/yjllo4ub0b0l96oi-image-3fbfa51c.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Identify strong and weak regional payment performance.\nDetect regional anomalies in payment flow.\nSupport region-specific risk and operations planning."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Payments by Region .\nSelect date range and payment method filters.\nApply region/country filters.\nReview totals and region-wise comparison.\nExport selected view for finance review."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Total payment amount per region\nTransaction count\nSuccess/failure ratio\nNet settlement trend"
+      },
+      {
+        "heading": "How to Read This Report",
+        "text": "High volume + low success ratio usually indicates provider or compliance friction.\nA sudden regional drop should be compared with prior 7-day and 30-day windows.\nCompare same weekday ranges to reduce traffic pattern noise."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Region data missing : verify role scope and region filters.\nMismatch with global totals : check if all payment methods are included.\nUnexpected spike/drop : validate timezone and maintenance window overlaps."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Create a weekly baseline export per major region and compare against current week."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-1-2/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Deposit Report: View and Export",
+    "sections": [
+      {
+        "heading": "Deposit Report: View and Export",
+        "text": "Use this report to monitor incoming deposit transactions and conversion quality."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-1-2/gcjxv0g4wp2o8wpn-image-f0c66c4d.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Track deposit volume and success trends.\nValidate settlement consistency by provider/method.\nExport deposit data for audit and reconciliation."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Deposit Report .\nChoose date range, currency, status, and provider filters.\nApply filters and review summary values.\nInspect failed or pending transactions.\nExport as CSV/XLS/PDF based on use case."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Deposit count\nGross deposit amount\nSuccess/failure/pending breakdown\nAverage deposit size"
+      },
+      {
+        "heading": "Export Guidance",
+        "text": "Use CSV/XLS for reconciliation and pivot analysis.\nUse PDF for management snapshots.\nSave filter context with exported file name."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Low conversion : review failure reasons by method/provider.\nPending too high : check settlement delay from gateway.\nExport mismatch : refresh, re-apply filters, then export again."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Review failed deposits daily and correlate with provider incidents."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-1-3/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Withdrawal Transaction Report",
+    "sections": [
+      {
+        "heading": "Withdrawal Transaction Report",
+        "text": "Use this report to monitor outgoing withdrawals and approval quality."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-1-3/ikhgiidxw4luhjdf-image-78d37bdf.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Track withdrawal volume, approval, and rejection patterns.\nValidate processing speed and payout consistency.\nSupport fraud/risk review for high-risk withdrawals."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Withdrawal Report .\nFilter by date, status, method, and player segment.\nReview approved/rejected/pending totals.\nInvestigate outliers (high-value, repeated failures, long pending).\nExport report for operations or compliance follow-up."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Withdrawal count and amount\nApproval/rejection ratio\nAverage processing time\nHigh-value withdrawal concentration"
+      },
+      {
+        "heading": "How to Use for Operations",
+        "text": "Use pending-age checks to detect operational bottlenecks.\nCompare rejection reasons by method to identify policy friction.\nMonitor same-player repeated attempts for risk flags."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Pending queue increasing : check approval workflow delays.\nRejection spike : validate KYC/AML rule changes.\nTotals differ from payout records : align status and settlement cut-off time."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Set daily thresholds for pending age and rejection ratio, then trigger internal alerts."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-1-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-1-4/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-1-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Financial Sales Report",
+    "sections": [
+      {
+        "heading": "Financial Sales Report",
+        "text": "Use this report for consolidated financial sales analysis over custom periods."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-1-4/ot8mqks2xp8sxre8-image-91f6fb21.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Analyze revenue contribution by channel/product.\nCompare sales trends against deposits and withdrawals.\nSupport finance planning and executive reporting."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Financial Sales Report .\nSelect period, currency, and channel/provider filters.\nReview revenue totals and trend lines.\nCompare with previous period (WoW/MoM).\nExport final view for finance deck."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Gross sales/revenue\nNet sales contribution\nChannel/provider split\nPeriod-over-period change (%)"
+      },
+      {
+        "heading": "Analysis Tips",
+        "text": "Always compare equivalent periods (same weekdays or month length).\nCorrelate sharp sales movements with campaigns and payment events.\nUse both amount and count metrics; amount alone can hide conversion shifts."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Trend looks inconsistent : check currency and timezone settings.\nGap vs daily report : confirm cut-off timing.\nUnexpected negative movement : inspect rollback/refund effects."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use this report as your primary weekly and monthly finance baseline."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-1-5",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-1-5/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-1-5",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Daily Sales Report",
+    "sections": [
+      {
+        "heading": "Daily Sales Report",
+        "text": "Use this report for day-by-day revenue monitoring and quick operational checks."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-1-5/xying5h3hq7yr34l-image-1dfe9b23.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Track daily sales movement.\nDetect same-day anomalies fast.\nValidate if operations are aligned with expected targets."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Daily Sales Report .\nSelect target date or short date window.\nApply channel/provider filters.\nReview daily totals and variance vs previous day.\nExport day summary if needed."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Daily gross sales\nDaily net sales\nDaily transaction count\nDay-over-day change"
+      },
+      {
+        "heading": "Operational Usage",
+        "text": "Morning: verify prior-day closure health.\nMidday: check partial-day trend vs expected run rate.\nEnd-of-day: export final snapshot for internal handover."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Large day-to-day swings : verify campaign, outages, or settlement delays.\nDaily total not final : check report cut-off and processing window.\nMissing channel : ensure filter includes all channels."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use daily report for fast monitoring, then confirm with Financial Sales Report for strategic view."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-1-6",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-1-6/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-1-6",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Financial Balance Report",
+    "sections": [
+      {
+        "heading": "Financial Balance Report",
+        "text": "Use this report to monitor balance position and liquidity movement."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-1-6/mnhfojwhfdmkn9sb-image-d13f77cc.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Validate current balance status.\nTrack inflow/outflow impact on liquidity.\nSupport treasury and risk monitoring."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Balance Report .\nSelect date range, currency, and wallet/account scope.\nReview opening, movement, and closing balances.\nCross-check with deposit/withdrawal summaries.\nExport reconciliation-ready data."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Opening balance\nTotal inflow / outflow\nNet movement\nClosing balance"
+      },
+      {
+        "heading": "Reconciliation Flow",
+        "text": "Opening balance + inflow - outflow should match closing balance.\nIf mismatch exists, verify pending, rollback, and adjustment entries."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Balance mismatch : re-check cut-off time and pending statuses.\nNegative balance alert : verify delayed settlements and manual adjustments.\nUnexpected currency movement : confirm selected wallet/currency scope."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Run end-of-day balance validation and keep a signed export for audit trail."
+      }
+    ]
+  },
+  {
+    "doc_id": "financial-reports/6-2-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/financial-reports/6-2-1/",
+    "module": "bo",
+    "category": "financial-reports",
+    "topic_id": "6-2-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Game Transaction Report",
+    "sections": [
+      {
+        "heading": "Game Transaction Report",
+        "text": "Use this report to review game-related financial transactions at transaction level."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/financial-reports/6-2-1/5otiiphwvalgxpfy-image-29b5481f.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Monitor game transaction flow and value distribution.\nInvestigate game-level transaction anomalies.\nSupport operations, risk, and finance investigations."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Financial Reports > Game Transaction Report .\nApply game, provider, player, date, and status filters.\nReview transaction rows and summary totals.\nInvestigate suspicious patterns (repeats, reversals, high-value spikes).\nExport selected subset for case follow-up."
+      },
+      {
+        "heading": "Key Metrics",
+        "text": "Transaction count\nBet and win values\nNet game transaction result\nReversal/adjustment frequency"
+      },
+      {
+        "heading": "Investigation Tips",
+        "text": "Compare same game across different providers where possible.\nCheck repeated failed/reversed entries for integration issues.\nCorrelate spikes with release/campaign timelines."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "No rows found : relax combined filters and increase range.\nMismatch with casino reports : align status and settlement logic.\nToo many rows : split by provider or game category."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use this report as a deep-dive tool after summary reports identify suspicious movement."
+      }
+    ]
+  },
+  {
+    "doc_id": "operations-and-support/7-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/7-1-1/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": "7-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Financial Transactions",
+    "sections": [
+      {
+        "heading": "Financial Transactions",
+        "text": "Use this page as the primary monitor for incoming and outgoing financial activity."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/operations-and-support/7-1-1/0osm6xgjsd7c20pn-image-7e743930.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Provide a single operational view of finance transactions.\nDetect anomalies early (repeats, delays, unusual amounts).\nSupport handover and escalation with traceable records."
+      },
+      {
+        "heading": "Typical Workflow",
+        "text": "Open Operations > Financial Transactions .\nApply date, transaction type, status, and currency filters.\nSort by latest updates and pending age.\nReview high-value and failed items first.\nExport or tag records for escalation if required."
+      },
+      {
+        "heading": "Key Fields to Validate",
+        "text": "Transaction ID / reference ID\nType (deposit/withdrawal/adjustment)\nStatus (success, failed, pending, reversed)\nRequested amount vs settled amount\nUpdated timestamp and processor/source"
+      },
+      {
+        "heading": "Validation Checklist",
+        "text": "Pending queue is within allowed SLA.\nFailed ratio is within normal baseline.\nNo sudden concentration from one method/provider.\nNo duplicate transaction references."
+      },
+      {
+        "heading": "Escalation Criteria",
+        "text": "Escalate when:\nPending transactions exceed operational SLA.\nMultiple high-value failures happen in short window.\nSame account triggers repeated abnormal pattern."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Data appears stale : refresh and reapply filters.\nMissing transactions : check scope filters (date/currency/type).\nStatus mismatch : verify settlement source update timing."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use this page every shift start and shift end to maintain clean operational continuity."
+      }
+    ]
+  },
+  {
+    "doc_id": "operations-and-support/7-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/7-1-2/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": "7-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Deposit Requests",
+    "sections": [
+      {
+        "heading": "Deposit Requests",
+        "text": "Use this page to process and monitor user deposit requests."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/operations-and-support/7-1-2/gqyfelocvgjbskqm-image-9ae4964c.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Track deposit request lifecycle from creation to settlement.\nResolve pending and failed requests quickly.\nReduce user wait time and support ticket load."
+      },
+      {
+        "heading": "Request Lifecycle",
+        "text": "Common statuses:\nPending : awaiting gateway/processor callback or manual validation.\nApproved/Success : amount posted successfully.\nFailed/Rejected : request not completed.\nReversed : settled then reversed due to correction/chargeback logic."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Operations > Deposit Requests .\nFilter by status, payment method, date range, and user.\nStart with oldest pending requests.\nCheck processor response/error code.\nMark for retry/escalation when required.\nExport unresolved queue for shift handover."
+      },
+      {
+        "heading": "What to Check Before Escalation",
+        "text": "User account status is active and verified.\nPayment method is enabled and healthy.\nDuplicate attempts are not caused by user refresh behavior.\nRequested and received amount mismatch is documented."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "High pending volume : verify payment gateway callback delays.\nRepeated failures on one method : check provider incident panel.\nAmount mismatch : validate fees/conversion rules."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Maintain a pending-age bucket (0-15m, 15-60m, 60m+) and resolve oldest first."
+      }
+    ]
+  },
+  {
+    "doc_id": "operations-and-support/7-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/7-1-3/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": "7-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Withdrawal Requests",
+    "sections": [
+      {
+        "heading": "Withdrawal Requests",
+        "text": "Use this page to review, approve, and monitor withdrawal requests safely."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/operations-and-support/7-1-3/xegzmny2me9pimmd-image-e4e26c76.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Control payout flow quality and speed.\nEnforce risk, KYC, and policy checks before approval.\nKeep rejection rates transparent and explainable."
+      },
+      {
+        "heading": "Processing Flow",
+        "text": "Open Operations > Withdrawal Requests .\nFilter by pending/approved/rejected and date range.\nPrioritize oldest pending and high-value requests.\nValidate KYC status, account flags, and payment destination.\nApprove/reject with reason notes.\nTrack post-action settlement confirmation."
+      },
+      {
+        "heading": "Required Checks Before Approval",
+        "text": "KYC/verification level meets payout policy.\nAccount has no unresolved risk flags.\nWithdrawal amount and frequency are within thresholds.\nDestination account format and ownership checks pass."
+      },
+      {
+        "heading": "Rejection Handling",
+        "text": "When rejecting, include clear reason category:\nKYC incomplete\nPolicy threshold exceeded\nRisk/compliance block\nPayment destination mismatch"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Pending queue growth : review reviewer capacity and approval bottlenecks.\nRejection spike : verify if policy rules were updated.\nUser disputes after rejection : ensure detailed reason is logged."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use dual control for high-value withdrawals: one reviewer + one final approver."
+      }
+    ]
+  },
+  {
+    "doc_id": "operations-and-support/7-2-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/7-2-1/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": "7-2-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Cash Desk Live Chat",
+    "sections": [
+      {
+        "heading": "Cash Desk Live Chat",
+        "text": "Use this page for real-time communication on urgent transaction issues."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/operations-and-support/7-2-1/kgtntkvc1fqyf6m7-image-9e07c9a4.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Resolve active payment/withdrawal issues quickly.\nCoordinate between support, operations, and cash desk teams.\nReduce response latency for high-impact incidents."
+      },
+      {
+        "heading": "Standard Handling Flow",
+        "text": "Open incoming chat and classify issue type.\nConfirm user identity and transaction reference.\nVerify issue in operations pages before replying.\nProvide action + ETA (or escalation notice).\nClose chat only after confirmation."
+      },
+      {
+        "heading": "Priority Model",
+        "text": "P1 : payment stuck, large-value issue, repeated system failure.\nP2 : delayed processing, verification mismatch.\nP3 : informational or non-blocking query."
+      },
+      {
+        "heading": "Agent Response Checklist",
+        "text": "Include ticket/reference ID in first response.\nShare next action and expected timeline.\nAvoid ambiguous statements; use policy-safe language.\nCapture escalation reason if transferred."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Chat not updating : refresh socket/session.\nWrong queue assignment : re-route to correct team queue.\nMissing transaction context : request reference ID before action."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use short, structured responses: status, action, ETA, next update point."
+      }
+    ]
+  },
+  {
+    "doc_id": "operations-and-support/7-2-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/7-2-2/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": "7-2-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Support Tickets",
+    "sections": [
+      {
+        "heading": "Support Tickets",
+        "text": "Use this page to manage non-real-time user issues and internal follow-ups."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/operations-and-support/7-2-2/ssao6nptjixugph7-image-4bde09fa.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Track issues end-to-end with ownership.\nEnsure SLA compliance by status and priority.\nMaintain documented audit trail of support actions."
+      },
+      {
+        "heading": "Ticket Workflow",
+        "text": "Open : ticket received and unassigned.\nIn Progress : agent accepted and is working.\nWaiting : waiting for user/other team response.\nResolved/Closed : issue completed with resolution note."
+      },
+      {
+        "heading": "Steps",
+        "text": "Open Support > Tickets .\nFilter by status, priority, and queue.\nAssign ticket owner.\nAdd resolution notes with references.\nUpdate status after each meaningful action."
+      },
+      {
+        "heading": "SLA Checks",
+        "text": "First response within team SLA target.\nResolution ETA updated for long-running cases.\nNo stale tickets without owner."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Ticket duplication : merge and preserve source references.\nUnclear issue : request minimum reproducible details.\nRepeated reopen : validate root cause, not only symptom fix."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Every closure note should include what was checked, what changed, and how it was validated."
+      }
+    ]
+  },
+  {
+    "doc_id": "operations-and-support/7-2-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/operations-and-support/7-2-3/",
+    "module": "bo",
+    "category": "operations-and-support",
+    "topic_id": "7-2-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": [
+      {
+        "heading": "Introduction",
+        "text": "Use this page to process inbound messages submitted via contact forms."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/operations-and-support/7-2-3/aijygk62fkkydkbm-image-aa921b76.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Capture and triage unsolicited inbound user communication.\nRoute messages to the right operational queue.\nPrevent missed messages and response delays."
+      },
+      {
+        "heading": "Triage Workflow",
+        "text": "Open Support > Contact Us List .\nSort by newest and priority markers.\nClassify message (payment, account, technical, legal, other).\nConvert to ticket when action is required.\nMark as handled and log reference."
+      },
+      {
+        "heading": "Message Classification Guide",
+        "text": "Payment related : route to finance operations queue.\nAccount/KYC : route to compliance or account support.\nTechnical defect : route to support ticket + engineering follow-up.\nGeneral inquiry : respond with approved template."
+      },
+      {
+        "heading": "Data Hygiene Rules",
+        "text": "Remove duplicate spam entries.\nKeep user contact details masked where policy requires.\nAttach internal reference on every escalated item."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Unassigned backlog growing : apply auto-tag and daily triage batch.\nRepeated same inquiry : publish FAQ response template internally.\nNo response trace : ensure ticket mapping field is mandatory."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Run contact queue triage at fixed intervals (start, mid, end shift) instead of random checks."
+      }
+    ]
+  },
+  {
+    "doc_id": "system-configuration/8-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/8-1-1/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": "8-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Partner Settings",
+    "sections": [
+      {
+        "heading": "Partner Settings",
+        "text": "Use this page to configure partner-level operational behavior and access boundaries."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/system-configuration/8-1-1/giwxwyl1kahf4cxu-image-115c3bd7.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Manage partner configuration safely.\nKeep partner-specific settings aligned with policy.\nPrevent cross-partner scope mistakes."
+      },
+      {
+        "heading": "Typical Configuration Flow",
+        "text": "Open System Configuration > Partner Settings .\nSelect target partner entity.\nReview current settings before editing.\nUpdate only required fields.\nSave and run a quick validation test."
+      },
+      {
+        "heading": "Critical Checks",
+        "text": "Correct partner selected.\nRegion/currency/payment scope matches contract.\nAccess boundaries do not overlap with other partners.\nAudit note/comment added for change context."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Settings not applied : verify save confirmation and cache delay.\nWrong partner behavior : confirm partner ID mapping.\nUnexpected permission effects : check role inheritance."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use change tickets and versioned notes for every partner setting update."
+      }
+    ]
+  },
+  {
+    "doc_id": "system-configuration/8-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/8-1-2/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": "8-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Email Template Management",
+    "sections": [
+      {
+        "heading": "Email Template Management",
+        "text": "Use this module to create and maintain transactional/system email templates."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/system-configuration/8-1-2/ejbejjkcd1wr65iw-image-cfbebe18.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Standardize outgoing communication.\nKeep messaging consistent across flows.\nControl template quality and localization."
+      },
+      {
+        "heading": "Template Lifecycle",
+        "text": "Draft template.\nAdd variables/placeholders.\nPreview and test send.\nApprove and publish.\nTrack and revise when needed."
+      },
+      {
+        "heading": "Field Notes",
+        "text": "Subject : keep short and action-oriented.\nBody : use approved tone and placeholders only.\nLanguage : maintain EN/TR parity where required.\nStatus : draft vs active must be explicit."
+      },
+      {
+        "heading": "Validation Checklist",
+        "text": "Placeholders render correctly.\nLinks route to expected environment.\nNo hardcoded personal or environment-specific data."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Broken variables : verify placeholder syntax.\nWrong language output : check template-language mapping.\nNo email delivered : confirm provider status and event trigger."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep a small set of reusable templates and avoid one-off duplicates."
+      }
+    ]
+  },
+  {
+    "doc_id": "system-configuration/8-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/8-1-3/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": "8-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Bonus Management",
+    "sections": [
+      {
+        "heading": "Bonus Management",
+        "text": "Use this page to configure bonus rules, eligibility, and active periods."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/system-configuration/8-1-3/zltfowbuwweh2ufo-image-69a1c4e8.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Launch controlled bonus campaigns.\nAvoid policy and payout conflicts.\nTrack bonus effectiveness and risk impact."
+      },
+      {
+        "heading": "Configuration Flow",
+        "text": "Create new bonus or edit existing one.\nDefine eligibility (segment, region, user type).\nSet value, limits, and wagering conditions.\nConfigure active window (start/end).\nSave and validate with test account."
+      },
+      {
+        "heading": "Key Fields",
+        "text": "Bonus type and value model\nMin/max thresholds\nWagering or unlock conditions\nExpiry and usage limit\nStacking/conflict behavior"
+      },
+      {
+        "heading": "Risk and Control Checks",
+        "text": "Ensure bonus does not conflict with active campaigns.\nValidate abuse controls and maximum exposure.\nConfirm rollback behavior is defined."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Bonus not applied : check eligibility and active dates.\nUnexpected overuse : review limit and duplicate claim controls.\nIncorrect settlement impact : verify finance mapping."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Enable high-impact bonuses in phased rollout instead of full instant release."
+      }
+    ]
+  },
+  {
+    "doc_id": "system-configuration/8-1-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/8-1-4/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": "8-1-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Ticket Event Management",
+    "sections": [
+      {
+        "heading": "Ticket Event Management",
+        "text": "Use this page to map events to the correct ticket workflows and queues."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/system-configuration/8-1-4/jvogfysk8nwzwlqt-image-a498be31.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Route events to the right support pipeline.\nImprove SLA handling with correct priority mapping.\nAvoid manual misclassification."
+      },
+      {
+        "heading": "Setup Flow",
+        "text": "Open System Configuration > Ticket Event Management .\nSelect event type.\nMap priority, queue, and owner rules.\nConfigure notifications/escalation targets.\nSave and simulate sample event."
+      },
+      {
+        "heading": "What to Validate",
+        "text": "Event creates ticket in expected queue.\nPriority mapping is correct.\nEscalation timer triggers as expected.\nDuplicate event handling is controlled."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Event not creating ticket : check trigger enable status.\nWrong queue assignment : review routing condition order.\nEscalation not firing : validate SLA timer config."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep routing logic simple and explicit; avoid overlapping conditions."
+      }
+    ]
+  },
+  {
+    "doc_id": "system-configuration/8-1-5",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/8-1-5/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": "8-1-5",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "",
+    "sections": [
+      {
+        "heading": "Introduction",
+        "text": "Use this module to create, control, and audit promo code campaigns."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/system-configuration/8-1-5/tqdxkduq4fvnfyjq-image-b748385a.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Manage code-based incentives with strict controls.\nTrack code usage and abuse risks.\nSupport campaign attribution and reporting."
+      },
+      {
+        "heading": "Setup Flow",
+        "text": "Create promo code set.\nDefine audience and redemption conditions.\nSet limits (per user, total uses, date window).\nActivate code batch.\nMonitor redemption and deactivate when needed."
+      },
+      {
+        "heading": "Control Parameters",
+        "text": "Redemption cap\nUser-level reuse restriction\nRegion/currency lock\nExpiry behavior\nManual override permissions"
+      },
+      {
+        "heading": "Validation Checklist",
+        "text": "Code format and uniqueness verified.\nCondition logic tested with eligible/ineligible users.\nExpiry and cut-off time confirmed."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Code rejected for valid user : re-check segment mapping.\nOver-redemption : verify per-user and total cap enforcement.\nCampaign mismatch in reports : confirm code-to-campaign mapping."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Use separate code pools per region/campaign to simplify tracking and rollback."
+      }
+    ]
+  },
+  {
+    "doc_id": "system-configuration/8-1-6",
+    "url": "https://userguide.playagegaming.tech/en/bo/system-configuration/8-1-6/",
+    "module": "bo",
+    "category": "system-configuration",
+    "topic_id": "8-1-6",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "System Maintenance Overview",
+    "sections": [
+      {
+        "heading": "System Maintenance Overview",
+        "text": "Use this page to plan and execute controlled maintenance windows."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/system-configuration/8-1-6/jdvkuvyixoc5xq1i-image-9383ad3f.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Protect system integrity during upgrades/fixes.\nCommunicate downtime clearly to users and teams.\nEnsure safe start and safe rollback path."
+      },
+      {
+        "heading": "Maintenance Execution Flow",
+        "text": "Define scope (services/pages/regions affected).\nSet start/end time and timezone.\nPublish maintenance notice.\nEnable maintenance mode.\nPerform planned changes.\nRun post-change health checks.\nDisable maintenance mode and verify user access."
+      },
+      {
+        "heading": "Pre-Maintenance Checklist",
+        "text": "Backup/rollback plan ready.\nStakeholders informed.\nMonitoring dashboard active.\nOn-call owners assigned."
+      },
+      {
+        "heading": "Post-Maintenance Validation",
+        "text": "Login and critical flows work.\nPayment and support channels are operational.\nError rate and latency normalized."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Maintenance stuck enabled : verify mode toggle and cache propagation.\nUsers still blocked after close : clear edge cache and confirm region flags.\nUnexpected error spike : trigger rollback decision process."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Prefer low-traffic windows and always execute a short post-maintenance observation period."
+      }
+    ]
+  },
+  {
+    "doc_id": "admin-settings/9-1-1",
+    "url": "https://userguide.playagegaming.tech/en/bo/admin-settings/9-1-1/",
+    "module": "bo",
+    "category": "admin-settings",
+    "topic_id": "9-1-1",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Admin Profile Management",
+    "sections": [
+      {
+        "heading": "Admin Profile Management",
+        "text": "Use this page to maintain core admin account details and ensure profile data stays accurate."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/admin-settings/9-1-1/yghzncq3gveke5nw-embedded-image-cnewluow-2ae96c9f.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Keep admin identity and contact details up to date.\nEnsure account ownership and responsibility are clear.\nPrevent operational confusion caused by outdated profile data."
+      },
+      {
+        "heading": "Typical Update Flow",
+        "text": "Open Admin Settings > Profile .\nReview current profile fields.\nUpdate editable fields (name, contact, optional metadata).\nSave changes.\nRe-open profile page to verify persistence."
+      },
+      {
+        "heading": "Field Validation Checklist",
+        "text": "Display name follows internal naming policy.\nContact details are reachable and active.\nRole/department labels are correct for audit context."
+      },
+      {
+        "heading": "When to Update Profile",
+        "text": "Role or team change\nContact change (email/phone)\nOwnership transfer for operational responsibilities"
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Changes not saved : verify required fields and retry.\nProfile data reverted : check if another admin update overwrote changes.\nRead-only field confusion : confirm role permissions for editable fields."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Review profile data monthly for all high-privilege admin accounts."
+      }
+    ]
+  },
+  {
+    "doc_id": "admin-settings/9-1-2",
+    "url": "https://userguide.playagegaming.tech/en/bo/admin-settings/9-1-2/",
+    "module": "bo",
+    "category": "admin-settings",
+    "topic_id": "9-1-2",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Two-Factor Authentication",
+    "sections": [
+      {
+        "heading": "Two-Factor Authentication",
+        "text": "Use this page to configure and validate 2FA for admin sign-in security."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/admin-settings/9-1-2/lllqc1s99cigahwx-embedded-image-mx83bimh-425abf8d.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Protect admin access beyond password-only login.\nReduce account takeover risk.\nEnforce compliance for privileged users."
+      },
+      {
+        "heading": "Enable/Update Flow",
+        "text": "Open Admin Settings > Two-Factor Authentication .\nChoose preferred method (authenticator app, OTP channel, if available).\nComplete setup verification code.\nSave and confirm 2FA status is active.\nTest one fresh login."
+      },
+      {
+        "heading": "Recovery and Safety Controls",
+        "text": "Store backup/recovery codes securely.\nKeep device time synchronized for OTP validity.\nRotate device binding if mobile device changes."
+      },
+      {
+        "heading": "Validation Checklist",
+        "text": "2FA prompt appears at next login.\nInvalid OTP attempts are blocked.\nBackup/recovery path works for authorized user."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "OTP rejected repeatedly : sync device time and request new code.\nNo 2FA prompt : verify enforcement policy for current role.\nDevice lost : trigger recovery flow via authorized admin process."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Require 2FA for all admin roles and audit exceptions monthly."
+      }
+    ]
+  },
+  {
+    "doc_id": "admin-settings/9-1-3",
+    "url": "https://userguide.playagegaming.tech/en/bo/admin-settings/9-1-3/",
+    "module": "bo",
+    "category": "admin-settings",
+    "topic_id": "9-1-3",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "App Settings",
+    "sections": [
+      {
+        "heading": "App Settings",
+        "text": "Use this page to configure personal admin application preferences."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/admin-settings/9-1-3/r8cg9bwy8icbxmnd-image-65de112c.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "Improve daily usability without changing global system behavior.\nKeep personal preference settings consistent.\nReduce navigation and handling friction during operations."
+      },
+      {
+        "heading": "Common Settings Area",
+        "text": "Language preference\nTheme or display options\nNotification preferences\nSession behavior options (where allowed)"
+      },
+      {
+        "heading": "Update Flow",
+        "text": "Open Admin Settings > App Settings .\nUpdate required preferences.\nSave settings.\nRefresh page or re-login if prompted.\nValidate changes are applied."
+      },
+      {
+        "heading": "Validation Checklist",
+        "text": "UI language/theme reflects saved values.\nNotifications follow selected preference.\nSettings persist after re-login."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Settings reset after login : check profile sync or browser storage restrictions.\nOption not visible : role or feature flag may hide it.\nUnexpected behavior : clear cache and reapply settings."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Keep personal settings minimal and consistent to avoid shift-to-shift confusion."
+      }
+    ]
+  },
+  {
+    "doc_id": "admin-settings/9-1-4",
+    "url": "https://userguide.playagegaming.tech/en/bo/admin-settings/9-1-4/",
+    "module": "bo",
+    "category": "admin-settings",
+    "topic_id": "9-1-4",
+    "level": 2,
+    "priority": 0.64,
+    "lastmod": "2026-02-23T11:23:48+00:00",
+    "title": "Logout",
+    "sections": [
+      {
+        "heading": "Logout",
+        "text": "Use this flow to close admin sessions safely and avoid unauthorized reuse."
+      },
+      {
+        "heading": "Interface Reference",
+        "text": "Reference screenshot for documentation purposes:\nhttps://userguide.playagegaming.tech/img/bo/admin-settings/9-1-4/5iidpxhdg4logd2n-image-63e3f389.webp"
+      },
+      {
+        "heading": "Purpose",
+        "text": "End active session securely.\nPrevent access from shared or unattended devices.\nEnsure clean transition between admins on operational machines."
+      },
+      {
+        "heading": "Logout Flow",
+        "text": "Open profile/menu area.\nClick Logout/Sign Out .\nConfirm action (if confirmation modal appears).\nVerify redirect to login page."
+      },
+      {
+        "heading": "Post-Logout Validation",
+        "text": "Back button does not reopen authenticated pages.\nRefreshing old BO URL requires login.\nSession token is invalidated."
+      },
+      {
+        "heading": "Troubleshooting",
+        "text": "Still logged in after logout : clear browser cache/cookies and retry.\nRedirect loop to dashboard : verify session token invalidation.\nMultiple tab issue : close all open BO tabs after sign out."
+      },
+      {
+        "heading": "Best Practice",
+        "text": "Always logout before leaving your workstation, even for short breaks."
+      }
+    ]
+  }
+]

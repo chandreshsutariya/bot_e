@@ -16,7 +16,7 @@ import ftfy  # fixes broken UTF-8 characters
 # CONFIG
 # -----------------------------
 INPUT_FILE = "E:/Flask/Playage_Support_Bot/documents_index.json"
-OUTPUT_FILE = "E:/Flask/Playage_Support_Bot/raw_pages.json"
+OUTPUT_FILE = "E:/Flask/Playage_Support_Bot/new_trail_raw_pages.json"
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (RAG-Bot)"

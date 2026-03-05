@@ -25,7 +25,7 @@ from hybrid_retriever import HybridRetriever
 # -----------------------------
 load_dotenv()
 
-INDEX_DIR = os.getenv("INDEX_DIR", "E:/Flask/Playage_Support_Bot/Embedding/chandresh_data_faq_vector_index")
+INDEX_DIR = os.getenv("INDEX_DIR", "E:/Flask/Playage_Support_Bot/Version-1.0/Backend/RAG/faq_vector_index")
 EMBED_MODEL = os.getenv("EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 GEMINI_API_KEY = os.getenv("GEMINI_API")
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY_3")
@@ -66,6 +66,7 @@ class AskResponse(BaseModel):
     Steps: List[str]
     Tips: List[str]
     Image_References: str
+    References: str = ""
 
 
 # -----------------------------
@@ -215,6 +216,7 @@ def empty_answer() -> AskResponse:
         Steps=[],
         Tips=[],
         Image_References="",
+        References="",
     )
 
 
@@ -259,10 +261,26 @@ def ask(req: AskRequest, request: Request):
     docs = hybrid_retriever.search(question, k_faiss=FAISS_K, k_bm25=BM25_K)
 
     context = ""
+    references_text = ""
     if docs:
         reranker.top_n = req.top_k or RERANK_TOP_N
         docs = reranker.rerank(question, docs)
         context = build_context(docs)
+        
+        ref_list = []
+        seen_urls = set()
+        for d in docs:
+            title = d.metadata.get('title')
+            doc_id = d.metadata.get('doc_id')
+            if title and doc_id:
+                url = f"https://userguide.playagegaming.tech/en/bo/{doc_id}/"
+                if url not in seen_urls:
+                    ref_list.append(f"{title}\n   {url}")
+                    seen_urls.add(url)
+                    
+        if ref_list:
+            formatted_refs = [f"{i}. {ref}" for i, ref in enumerate(ref_list, 1)]
+            references_text = "---\nReferences:\n" + "\n".join(formatted_refs)
 
     prompt = build_prompt()
 
@@ -283,11 +301,16 @@ def ask(req: AskRequest, request: Request):
             raw = llm_backup.invoke(formatted_prompt).content
 
         data = safe_json_parse(raw)
+        
+        definition_text = data.get("Definition", "Not available")
+        is_fallback = "not available" in definition_text.lower()
+        
         return AskResponse(
-            Definition=data.get("Definition", "Not available"),
+            Definition=definition_text,
             Steps=data.get("Steps", []),
             Tips=data.get("Tips", []),
             Image_References=data.get("Image_References", ""),
+            References="" if is_fallback or not context else references_text,
         )
     except Exception as e:
         print(f"Error processing answer: {e}")

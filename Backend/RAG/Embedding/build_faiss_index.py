@@ -21,8 +21,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 # -------------------------------------------------
 # CONFIG
 # -------------------------------------------------
-CHUNKS_FILE = "E:/Flask/Playage_Support_Bot/chandresh_sir_data_chunks.json"
-INDEX_DIR = "E:/Flask/Playage_Support_Bot/Embedding/chandresh_data_faq_vector_index"
+CHUNKS_FILE = "E:Flask/Playage_Support_Bot/Version-1.0/Backend/RAG/Chunking/updated_modified_data_chunks.json"
+INDEX_DIR = "E:/Flask/Playage_Support_Bot/Version-1.0/Backend/RAG/Embedding/faq_vector_index"
 
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 # EMBEDDING_MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"

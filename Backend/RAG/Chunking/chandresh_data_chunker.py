@@ -19,8 +19,8 @@ import tiktoken
 # -------------------------------------------------
 # CONFIG
 # -------------------------------------------------
-INPUT_FILE = "E:/Flask/Playage_Support_Bot/chandresh_sir_updated_data.json"
-OUTPUT_FILE = "E:/Flask/Playage_Support_Bot/chandresh_sir_data_chunks.json"
+INPUT_FILE = "E:/Flask/Playage_Support_Bot/Version-1.0/Backend/RAG/Chunking/updated_modified_data.json"
+OUTPUT_FILE = "E:/Flask/Playage_Support_Bot/Version-1.0/Backend/RAG/Chunking/updated_modified_data_chunks.json"
 
 MAX_TOKENS = 600          # ideal for MiniLM / OpenAI / Gemini
 RESERVED_TOKENS = 120     # space for title + section context

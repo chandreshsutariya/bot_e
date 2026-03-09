@@ -2,16 +2,12 @@ import os
 import re
 import json
 import time
-import hmac
-import hashlib
 from typing import Any, Dict, List, Optional
 from datetime import datetime, timezone
-from collections import defaultdict
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 from dotenv import load_dotenv
 
@@ -58,44 +54,17 @@ os.makedirs(MEMORY_DIR, exist_ok=True)
 # Mandatory client-side secret — all /ask requests must include this
 BACKEND_API_KEY = os.getenv("BACKEND_SECRET_KEY", "playage-bo-secret-2024")
 
-# Security config
-MAX_BODY_BYTES    = 16 * 1024          # 16 KB hard cap on request body
-AUTH_FAIL_LIMIT   = 5                  # wrong-key attempts before IP ban
-AUTH_BAN_SECONDS  = 15 * 60           # 15-minute ban duration
-AUTH_FAIL_WINDOW  = 60                 # sliding window to count failures (seconds)
-
-# In-memory trackers (cleared on server restart — good enough for dev/prod)
-_AUTH_FAILS: Dict[str, List[float]] = defaultdict(list)   # ip → [timestamps]
-_AUTH_BANS:  Dict[str, float]        = {}                  # ip → ban_until
-
 # -----------------------------
 # FASTAPI APP
 # -----------------------------
-app = FastAPI(
-    title="Playage Backoffice RAG API",
-    version="1.0.0",
-    docs_url=None,        # disable /docs in production
-    redoc_url=None,       # disable /redoc in production
-    openapi_url=None,     # hide schema entirely
-)
-
-# ── Body-size guard: reject anything > 16 KB before parsing ─────────────────
-@app.middleware("http")
-async def limit_body_size(request: Request, call_next):
-    content_length = request.headers.get("content-length")
-    if content_length and int(content_length) > MAX_BODY_BYTES:
-        return JSONResponse(status_code=413, content={"detail": "Request body too large"})
-    body = await request.body()
-    if len(body) > MAX_BODY_BYTES:
-        return JSONResponse(status_code=413, content={"detail": "Request body too large"})
-    return await call_next(request)
+app = FastAPI(title="Playage Backoffice RAG API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["POST", "OPTIONS"],  # only what we actually need
-    allow_headers=["Content-Type", "Authorization"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # -----------------------------
@@ -103,19 +72,11 @@ app.add_middleware(
 # -----------------------------
 class AskRequest(BaseModel):
     Username: str = Field(..., max_length=30)
-    User_preffered_language: str = Field(..., pattern="^(en|tr|fa|ar)$")  # extended for auto-detected langs
-    question: str = Field(..., min_length=2, max_length=1500)  # tightened from 2000
-    top_k: Optional[int] = Field(None, ge=1, le=10)            # max 10 not 20
-    session_id: Optional[str] = Field(None, max_length=64, pattern=r"^[\w\-]+$")  # alphanumeric + dash only
-    api_key: str = Field(..., max_length=128)
-
-    @field_validator('Username')
-    @classmethod
-    def username_alphanum(cls, v: str) -> str:
-        # Allow letters, numbers, spaces, dots, underscores — nothing else
-        if not re.match(r'^[\w .\-]{1,30}$', v):
-            raise ValueError('Invalid username format')
-        return v.strip()
+    User_preffered_language: str = Field(..., pattern="^(en|tr)$")
+    question: str = Field(..., min_length=2, max_length=2000)
+    top_k: Optional[int] = Field(None, ge=1, le=20)
+    session_id: Optional[str] = Field(None, max_length=64)
+    api_key: str = Field(...)   # mandatory — must match BACKEND_API_KEY
 
 
 class SessionDeleteRequest(BaseModel):
@@ -304,98 +265,16 @@ def startup():
     print("✅ API Ready")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# SECURITY HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
-
-def safe_check_api_key(provided: str, ip: str) -> None:
-    """
-    Constant-time API key comparison + IP brute-force banning.
-    Raises 401 / 429 on failure.
-    """
-    now = time.time()
-
-    # Check if IP is currently banned
-    ban_until = _AUTH_BANS.get(ip, 0)
-    if now < ban_until:
-        remaining = int(ban_until - now)
-        print(f"[Security] Banned IP {ip} tried again. {remaining}s remaining.")
-        raise HTTPException(
-            status_code=429,
-            detail=f"Too many failed attempts. Try again in {remaining} seconds."
-        )
-
-    # Constant-time comparison — prevents timing attacks
-    key_ok = hmac.compare_digest(
-        hashlib.sha256(provided.encode()).digest(),
-        hashlib.sha256(BACKEND_API_KEY.encode()).digest(),
-    )
-
-    if not key_ok:
-        # Record failure
-        fails = _AUTH_FAILS[ip]
-        fails[:] = [t for t in fails if now - t < AUTH_FAIL_WINDOW]
-        fails.append(now)
-        print(f"[Security] Bad API key from {ip}. Failures in window: {len(fails)}")
-
-        if len(fails) >= AUTH_FAIL_LIMIT:
-            _AUTH_BANS[ip] = now + AUTH_BAN_SECONDS
-            _AUTH_FAILS.pop(ip, None)
-            print(f"[Security] IP {ip} BANNED for {AUTH_BAN_SECONDS}s after {AUTH_FAIL_LIMIT} failures.")
-            raise HTTPException(
-                status_code=429,
-                detail=f"Too many failed attempts. You are blocked for {AUTH_BAN_SECONDS // 60} minutes."
-            )
-
-        raise HTTPException(status_code=401, detail="Unauthorized: invalid API key")
-
-    # Success — clear any prior fail history for this IP
-    _AUTH_FAILS.pop(ip, None)
-
-
-# Compiled patterns — build once, reuse on every request
-_HTML_TAG_RE   = re.compile(r'<[^>]+>')
-_CTRL_CHAR_RE  = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]')
-_MULTI_NL_RE   = re.compile(r'\n{3,}')
-
-# Prompt-injection / jailbreak patterns
-_INJECTION_RE  = re.compile(
-    r'(ignore\s+(all\s+)?(previous|above|prior)\s+instructions?'
-    r'|forget\s+(everything|all|previous)'
-    r'|you\s+are\s+now\s+(?:a|an|the)\s+'
-    r'|pretend\s+(you\s+are|to\s+be)'
-    r'|act\s+as\s+(a\s+)?(?:different|evil|unrestricted|jailbreak)'
-    r'|system\s*:\s*'
-    r'|<\s*system\s*>'
-    r'|\[\s*system\s*\]'
-    r'|###\s*instruction'
-    r'|\\n\\n\\n\\n)',  # excessive newline escapes typical in injections
-    re.IGNORECASE,
-)
-
-
-def sanitize_input(text: str) -> str:
-    """Strip HTML, control chars, and normalise whitespace."""
-    text = _HTML_TAG_RE.sub('', text)       # strip <any> tags
-    text = _CTRL_CHAR_RE.sub('', text)      # strip control characters
-    text = _MULTI_NL_RE.sub('\n\n', text)  # collapse excessive newlines
-    return text.strip()
-
-
-def detect_injection(text: str) -> bool:
-    """Return True if the text looks like a prompt-injection attempt."""
-    return bool(_INJECTION_RE.search(text))
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-
+# -----------------------------
+# HELPERS
+# -----------------------------
 def rate_limit(ip: str):
     now = time.time()
     bucket = RATE_BUCKET.setdefault(ip, [])
     bucket[:] = [t for t in bucket if now - t < 1]
 
     if len(bucket) >= RATE_LIMIT_RPS:
-        raise HTTPException(status_code=429, detail="Rate limit exceeded. Slow down.")
+        raise HTTPException(status_code=429, detail="Rate limit exceeded")
 
     bucket.append(now)
 
@@ -505,15 +384,12 @@ def ask(req: AskRequest, request: Request):
 
     rate_limit(request.client.host)
 
-    safe_check_api_key(req.api_key, request.client.host)
+    if req.api_key != BACKEND_API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized: invalid API key")
 
-    question = sanitize_input(req.question)
+    question = req.question.strip()
     if not question:
         raise HTTPException(status_code=400, detail="Empty question")
-        
-    if detect_injection(question):
-        print(f"[Security] Injection attempt detected from {request.client.host}")
-        raise HTTPException(status_code=400, detail="Invalid input pattern detected")
 
     # ── MEMORY: load per-session history ─────────────────────────────────────
     session_id = req.session_id or f"anon_{req.Username}"
@@ -661,8 +537,9 @@ def ask(req: AskRequest, request: Request):
 # called by frontend via navigator.sendBeacon on tab/window close
 # -----------------------------
 @app.post("/session/delete")
-def delete_session(req: SessionDeleteRequest, request: Request):
-    safe_check_api_key(req.api_key, request.client.host)
+def delete_session(req: SessionDeleteRequest):
+    if req.api_key != BACKEND_API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized")
 
     safe_id = re.sub(r'[^\w\-]', '_', req.session_id)[:64]
     path = os.path.join(MEMORY_DIR, f"{safe_id}.json")

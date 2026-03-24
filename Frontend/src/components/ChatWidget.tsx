@@ -12,9 +12,9 @@ import {
   Moon,
   Sun,
   Star,
-  LogOut,
   MessageSquarePlus,
   Globe,
+  SmilePlus,
 } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -34,6 +34,7 @@ interface Message {
   videoUrls?: string[];
   references?: ParsedReference[];
   followUpQuestions?: string[]; // clickable suggestion chips
+  reaction?: string;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -249,6 +250,7 @@ export default function ChatWidget() {
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  const [reactionPickerMsgId, setReactionPickerMsgId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // ── Theme (dark / light) ─────────────────────────────────────────────────
@@ -393,6 +395,15 @@ export default function ChatWidget() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  const handleReaction = (msgId: string, emoji: string) => {
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === msgId ? { ...msg, reaction: msg.reaction === emoji ? undefined : emoji } : msg
+      )
+    );
+    setReactionPickerMsgId(null);
+  };
 
   // ── Speech Recognition ───────────────────────────────────────────────────
   const [isListening, setIsListening] = useState(false);
@@ -987,7 +998,7 @@ export default function ChatWidget() {
               {messages.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} group mb-1`}
                 >
                   <div
                     className={`flex gap-3 max-w-[88%] ${
@@ -996,16 +1007,17 @@ export default function ChatWidget() {
                   >
                     {msg.sender === "bot" && <BotAvatar />}
 
-                    <div className="flex flex-col gap-1">
-                      <div
-                        className={`p-3.5 rounded-2xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap ${
-                          msg.sender === "user"
-                            ? 'bg-[#1E88E5] text-white rounded-tr-none'
-                            : isDark
-                              ? 'bg-[#1e2535] text-slate-200 border border-white/8 rounded-tl-none'
-                              : 'bg-gray-50 text-gray-800 border border-gray-100 rounded-tl-none'
-                        }`}
-                      >
+                    <div className="flex flex-col gap-1 w-full max-w-full">
+                      <div className="relative group/bubble inline-flex flex-col">
+                        <div
+                          className={`p-4 rounded-[20px] text-[15px] leading-relaxed shadow-md whitespace-pre-wrap transition-all relative ${
+                            msg.sender === "user"
+                              ? 'bg-gradient-to-br from-[#1E88E5] to-[#1565C0] text-white rounded-tr-[4px]'
+                              : isDark
+                                ? 'bg-[#1e2535] text-slate-200 border border-white/10 rounded-tl-[4px] shadow-black/20'
+                                : 'bg-white text-gray-800 border border-gray-100/80 rounded-tl-[4px] shadow-gray-200/50'
+                          }`}
+                        >
                         {/* Text */}
                         {msg.text}
 
@@ -1023,10 +1035,65 @@ export default function ChatWidget() {
                         )}
                       </div>
 
-                      <span className="text-[11px] text-gray-400 px-1">
-                        {msg.sender === "bot" ? "AI Assistant · " : "You · "}
-                        just now
-                      </span>
+                      {/* WhatsApp-style attached reaction on the bubble */}
+                      <AnimatePresence>
+                        {msg.reaction && (
+                          <motion.div 
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0 }}
+                            className={`absolute -bottom-3 ${msg.sender === "user" ? "-left-2" : "-right-2"} 
+                                      w-8 h-8 rounded-full shadow-md border text-[14px] flex items-center justify-center z-10 
+                                      ${isDark ? 'bg-[#1e253c] border-white/10' : 'bg-white border-gray-200'}`}
+                          >
+                            {msg.reaction}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {/* WhatsApp-style floating Reaction Picker Menu */}
+                      <AnimatePresence>
+                        {reactionPickerMsgId === msg.id && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                            className={`absolute -top-14 ${msg.sender === "user" ? "right-0 origin-bottom-right" : "left-0 origin-bottom-left"} z-30 flex items-center gap-2 sm:gap-3 px-4 py-2 rounded-full shadow-xl border ${
+                              isDark ? 'bg-[#1e253c] border-white/10' : 'bg-white border-gray-200'
+                            }`}
+                          >
+                            {['👍', '❤️', '😂', '😮', '😢', '🙏'].map(emoji => (
+                              <button
+                                key={emoji}
+                                onClick={() => handleReaction(msg.id, emoji)}
+                                className={`text-[22px] sm:text-[26px] leading-none transition-transform hover:scale-125 hover:-translate-y-1.5 ${
+                                  msg.reaction === emoji ? 'scale-125 bg-black/5 dark:bg-white/10 rounded-full' : ''
+                                }`}
+                                title={emoji}
+                              >
+                                {emoji}
+                              </button>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                      <div className={`flex items-center gap-2 px-1 mt-0.5 min-h-[22px] ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+                        <span className="text-[11px] font-medium text-gray-400">
+                          {msg.sender === "bot" ? "AI Assistant · " : "You · "}
+                          {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                        
+                        {/* Reaction Trigger Button */}
+                        <button
+                          onClick={() => setReactionPickerMsgId(prev => prev === msg.id ? null : msg.id)}
+                          className={`text-gray-400 hover:text-gray-600 transition-opacity p-1 rounded-full ${reactionPickerMsgId === msg.id ? 'opacity-100 bg-black/5' : 'opacity-0 group-hover:opacity-100'}`}
+                          title="React"
+                        >
+                          <SmilePlus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
 
                       {/* ── Follow-Up Question Chips ───────────────────── */}
                       {msg.sender === "bot" &&

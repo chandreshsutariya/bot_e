@@ -29,36 +29,38 @@ except ImportError:
 
 from reranker import CrossEncoderReranker
 from hybrid_retriever import HybridRetriever
+from config import settings
 import warnings
 from requests.exceptions import RequestsDependencyWarning
 warnings.filterwarnings("ignore", category=RequestsDependencyWarning)
 
 # -----------------------------
-# ENV + CONFIG
+# ENV + CONFIG (Now moved to config.py)
 # -----------------------------
-load_dotenv()
+INDEX_DIR = settings.resolved_index_dir
+EMBED_MODEL = settings.EMBED_MODEL
+GEMINI_API_KEY = settings.GEMINI_API
+CEREBRAS_API_KEY = settings.CEREBRAS_API_KEY_3
 
-INDEX_DIR = os.getenv("INDEX_DIR", "E:/Flask/Playage_Support_Bot/Version-1.0/Backend/RAG/Embedding/faq_vector_index")
-EMBED_MODEL = os.getenv("EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
-GEMINI_API_KEY = os.getenv("GEMINI_API")
-CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY_3")
+FAISS_K = settings.FAISS_K
+BM25_K = settings.BM25_K
+RERANK_TOP_N = settings.RERANK_TOP_N
+MAX_CONTEXT_CHARS = settings.MAX_CONTEXT_CHARS
+MEMORY_TURNS = settings.MEMORY_TURNS
+RETRIEVAL_CONFIDENCE_THRESHOLD = settings.RETRIEVAL_CONFIDENCE_THRESHOLD
+QUERY_REWRITE_HISTORY_TURNS = settings.QUERY_REWRITE_HISTORY_TURNS
 
-FAISS_K = int(os.getenv("FAISS_K", "12"))
-BM25_K = int(os.getenv("BM25_K", "12"))
-RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "5"))
-MAX_CONTEXT_CHARS = int(os.getenv("MAX_CONTEXT_CHARS", "12000"))
-MEMORY_TURNS = int(os.getenv("MEMORY_TURNS", "6"))
-RETRIEVAL_CONFIDENCE_THRESHOLD = float(os.getenv("RETRIEVAL_CONFIDENCE_THRESHOLD", "0.1"))
-QUERY_REWRITE_HISTORY_TURNS = int(os.getenv("QUERY_REWRITE_HISTORY_TURNS", "3"))
-
-RATE_LIMIT_RPS = float(os.getenv("RATE_LIMIT_RPS", "3.0"))
+RATE_LIMIT_RPS = settings.RATE_LIMIT_RPS
 RATE_BUCKET: Dict[str, List[float]] = {}
 
-MEMORY_DIR = os.getenv("MEMORY_DIR", "memory_sessions")
+MEMORY_DIR = settings.resolved_memory_dir
+
+# Ensure directories exist
+os.makedirs(INDEX_DIR, exist_ok=True)
 os.makedirs(MEMORY_DIR, exist_ok=True)
 
 # Mandatory client-side secret — all /ask requests must include this
-BACKEND_API_KEY = os.getenv("BACKEND_SECRET_KEY", "playage-bo-secret-2024")
+BACKEND_API_KEY = settings.BACKEND_SECRET_KEY
 
 # Security config
 MAX_BODY_BYTES    = 16 * 1024          # 16 KB hard cap on request body
@@ -216,7 +218,7 @@ Classify the user's message into exactly ONE of these intents:
 - Definition: if Steps exist → write a short 1-sentence intro only. Do NOT repeat the steps in Definition.
             if no Steps → write a concise paragraph answer.
 - Steps: clean numbered action steps. Empty [] if no sequential actions.
-- Follow_Up_Questions: 2–3 natural next questions. Question strings only.
+- Follow_Up_Questions: 2–3 logical next questions based directly on the contents of the CONTEXT below. CRITICAL: The answers to these questions MUST exist explicitly within the provided CONTEXT paragraph(s). Before suggesting a question, verify that its exact answer can be produced by only reading the CONTEXT. If the CONTEXT does not contain the answer, or if the CONTEXT is empty, return an empty list []. Do not guess or suggest out-of-bounds questions.
 - Image_References: ONLY images directly answering the question. Max 3. Exact raw URLs only.
 - Video_References: Most relevant video only. Max 1. Exact raw URL only.
 - If CONTEXT is empty or doesn't answer: Definition = "This information is not available in the documentation."
@@ -236,6 +238,7 @@ Strict rules:
 - Mirror the user's writing language as described above.
 - Exactly 6 fields. Nothing else.
 - No URLs in Definition.
+- Follow_Up_Questions MUST strictly be an empty list [] if the exact answers are not documented in the CONTEXT.
 
 ----------------------------------------------------
 CONTEXT:
@@ -770,13 +773,17 @@ def ask(req: AskRequest, request: Request):
     if docs:
         context = build_context(docs)
 
+        # Only show references from top 2 most relevant docs (already sorted by rerank score)
         ref_list = []
         seen_urls = set()
+        MAX_REFS = 2
         for d in docs:
+            if len(ref_list) >= MAX_REFS:
+                break
             title = d.metadata.get('title')
             doc_id = d.metadata.get('doc_id')
             if title and doc_id:
-                url = f"https://userguide.playagegaming.tech/en/bo/{doc_id}/"
+                url = f"{settings.USERGUIDE_BASE_URL}{doc_id}/"
                 if url not in seen_urls:
                     ref_list.append(f"{title}\n   {url}")
                     seen_urls.add(url)
@@ -854,14 +861,13 @@ def ask(req: AskRequest, request: Request):
         is_doc = (llm_intent == "documentation")
         print(f"[Intent] {llm_intent!r} | steps={len(llm_steps)} | fuqs={len(llm_fuqs)}")
 
-        # ── Media: regex fallback only for documentation with no LLM media ──
-        if is_doc and not llm_images and not llm_videos:
-            ctx_images, ctx_videos = extract_media_from_context(context)
-            final_images = ctx_images[:3]
-            final_videos = ctx_videos[:1]
-        else:
-            final_images = llm_images
-            final_videos = llm_videos
+        # ── Media: trust the LLM's selection — no blind regex fallback ────────
+        # The LLM has full context including all media URLs; if it returns
+        # empty lists, it means no media is directly relevant to the answer.
+        # Previously we had a regex fallback that dumped ALL context media,
+        # causing irrelevant screenshots to appear.
+        final_images = llm_images
+        final_videos = llm_videos
 
         # ── References only for documentation answers ────────────────────────
         show_refs = is_doc and not is_fallback and bool(context)

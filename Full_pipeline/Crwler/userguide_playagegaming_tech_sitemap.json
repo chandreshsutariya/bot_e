@@ -1,0 +1,11 @@
+{
+  "task": "Sitemap Extraction",
+  "status": "failed",
+  "input_url": "https://userguide.playagegaming.tech/en/cms/",
+  "base_url": "https://userguide.playagegaming.tech",
+  "result": "Sitemap not Found",
+  "errors": [
+    "No sitemap.xml discovered via robots.txt or common paths."
+  ],
+  "generated_at": "2026-03-11T11:26:33.341410+00:00"
+}

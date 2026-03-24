@@ -48,6 +48,8 @@ BM25_K = int(os.getenv("BM25_K", "12"))
 RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "5"))
 MAX_CONTEXT_CHARS = int(os.getenv("MAX_CONTEXT_CHARS", "12000"))
 MEMORY_TURNS = int(os.getenv("MEMORY_TURNS", "6"))
+RETRIEVAL_CONFIDENCE_THRESHOLD = float(os.getenv("RETRIEVAL_CONFIDENCE_THRESHOLD", "0.1"))
+QUERY_REWRITE_HISTORY_TURNS = int(os.getenv("QUERY_REWRITE_HISTORY_TURNS", "3"))
 
 RATE_LIMIT_RPS = float(os.getenv("RATE_LIMIT_RPS", "3.0"))
 RATE_BUCKET: Dict[str, List[float]] = {}
@@ -74,9 +76,9 @@ _AUTH_BANS:  Dict[str, float]        = {}                  # ip → ban_until
 app = FastAPI(
     title="Playage Backoffice RAG API",
     version="1.0.0",
-    docs_url=None,        # disable /docs in production
-    redoc_url=None,       # disable /redoc in production
-    openapi_url=None,     # hide schema entirely
+    # docs_url=None,        # disable /docs in production
+    # redoc_url=None,       # disable /redoc in production
+    # openapi_url=None,     # hide schema entirely
 )
 
 # ── Body-size guard: reject anything > 16 KB before parsing ─────────────────
@@ -214,7 +216,7 @@ Classify the user's message into exactly ONE of these intents:
 - Definition: if Steps exist → write a short 1-sentence intro only. Do NOT repeat the steps in Definition.
             if no Steps → write a concise paragraph answer.
 - Steps: clean numbered action steps. Empty [] if no sequential actions.
-- Follow_Up_Questions: 2–3 natural next questions. Question strings only.
+- Follow_Up_Questions: 2–3 logical next questions based directly on the contents of the CONTEXT below. CRITICAL: The answers to these questions MUST exist explicitly within the provided CONTEXT paragraph(s). Before suggesting a question, verify that its exact answer can be produced by only reading the CONTEXT. If the CONTEXT does not contain the answer, or if the CONTEXT is empty, return an empty list []. Do not guess or suggest out-of-bounds questions.
 - Image_References: ONLY images directly answering the question. Max 3. Exact raw URLs only.
 - Video_References: Most relevant video only. Max 1. Exact raw URL only.
 - If CONTEXT is empty or doesn't answer: Definition = "This information is not available in the documentation."
@@ -234,6 +236,7 @@ Strict rules:
 - Mirror the user's writing language as described above.
 - Exactly 6 fields. Nothing else.
 - No URLs in Definition.
+- Follow_Up_Questions MUST strictly be an empty list [] if the exact answers are not documented in the CONTEXT.
 
 ----------------------------------------------------
 CONTEXT:
@@ -254,11 +257,223 @@ hybrid_retriever = None
 reranker = None
 llm_primary = None
 llm_backup = None
+query_rewriter = None  # initialised in startup() after llm_text is ready
+llm_text = None        # Cerebras instance WITHOUT json_object mode — for rewriter & intent gate
+intent_gate = None     # pre-flight classifier — skips retrieval for non-doc intents
+
+
+# -----------------------------
+# SMART RETRIEVAL  (defined here — before startup — so the class is
+# available when startup() calls QueryRewriter(llm=llm_backup))
+# ── Intent Gate ── decides BEFORE retrieval whether docs are needed ──────────
+
+# Regex-based fast-path: catches the most common non-retrieval messages instantly
+# without any LLM call — zero latency, zero cost.
+_NO_RETRIEVAL_RE = re.compile(
+    r'^('
+    # greetings
+    r'hi+|hello+|hey+|good\s?(morning|afternoon|evening|night)|greetings?|howdy'
+    # acknowledgements / single-word responses
+    r'|ok(ay)?|sure|noted|got\s?it|thanks?|thank\s?you|understood|perfect|great'
+    r'|cool|nice|alright|fine|done|good|wow|amazing|awesome|excellent|incredible'
+    # casual closings
+    r'|bye|goodbye|see\s?you|later|cya'
+    # common non-english acknowledgements (Turkish, Farsi, Arabic)
+    r'|tamam|başüstüne|anlaşıldı|başüstüne|evet|hayır|başım üzerine'
+    r'|باشه|مرسی|متوجه میشم|این|یا|نه|ممنونم|خوب'
+    r'|نعم|لا|شكرا|تمام'
+    r')$',
+    re.IGNORECASE,
+)
+
+
+class IntentGate:
+    """
+    Fast pre-flight classifier: decides whether the question needs RAG retrieval.
+    
+    Pipeline:
+      1. Regex fast-path  — instant, zero cost for obvious non-documentation words
+      2. LLM fallback     — single token classification for ambiguous messages
+    
+    Only returns True (needs retrieval) when the message is likely a
+    documentation / feature question about Playage Backoffice.
+    """
+
+    # Minimal classification prompt — asks for exactly one word
+    _CLASSIFY_PROMPT = (
+        "You are a classifier for a Playage Backoffice customer support chatbot.\n"
+        "Classify the user message below. Reply with EXACTLY one word:\n"
+        "  retrieve  → if this is a question about Playage Backoffice features, "
+        "reports, settings, workflows, players, finance, or any specific documentation need.\n"
+        "  skip      → if this is a greeting, casual acknowledgement (okay/thanks/got it/noted), "
+        "out-of-scope question, single word, or small-talk.\n\n"
+        "User message: {question}\n"
+        "Answer:"
+    )
+
+    def __init__(self, llm):
+        self.llm = llm
+
+    def needs_retrieval(self, question: str) -> bool:
+        """
+        Returns True if retrieval should run for this question.
+        Always safe — defaults to True on any error.
+        """
+        # Stage 1: instant regex fast-path
+        if _NO_RETRIEVAL_RE.match(question.strip()):
+            print(f"[IntentGate] skip (regex fast-path): {question!r}")
+            return False
+
+        # Stage 2: LLM classifier for ambiguous messages
+        # Only fires when regex didn’t match (i.e., message is longer/complex)
+        try:
+            prompt = self._CLASSIFY_PROMPT.format(question=question)
+            result = self.llm.invoke(prompt).content.strip().lower()
+            # Be generous — only skip if LLM explicitly says 'skip'
+            if result.startswith("skip"):
+                print(f"[IntentGate] skip (LLM classified): {question!r}")
+                return False
+            print(f"[IntentGate] retrieve (LLM classified ‘{result[:20]}’): {question!r}")
+            return True
+        except Exception as e:
+            print(f"[IntentGate] classification failed ({e}), defaulting to retrieve")
+            return True  # safe default — never suppress retrieval on error
+
+
+class QueryRewriter:
+    """
+    Uses a fast LLM (llm_backup / Cerebras) to:
+      1. Condense a conversational follow-up into a self-contained retrieval query.
+      2. Generate an alternative/expanded query when Stage-1 confidence is low.
+    """
+
+    _CONDENSE_PROMPT = (
+        "Given the following conversation history and a follow-up question, "
+        "rewrite the follow-up as a standalone, self-contained search query for a "
+        "customer support knowledge base about Playage Backoffice software. "
+        "Be concise. Output ONLY the rewritten query, nothing else.\n\n"
+        "Conversation History:\n{chat_history}\n\n"
+        "Follow-up Question: {question}\n"
+        "Standalone Query:"
+    )
+
+    _EXPAND_PROMPT = (
+        "The following search query returned low-confidence results from a "
+        "Playage Backoffice documentation knowledge base. "
+        "Generate ONE alternative search query that approaches the topic from a "
+        "different angle or uses different keywords. "
+        "Output ONLY the alternative query, nothing else.\n\n"
+        "Original Query: {query}\n"
+        "Alternative Query:"
+    )
+
+    def __init__(self, llm):
+        self.llm = llm
+
+    def condense(self, question: str, chat_history: str) -> str:
+        """Return a self-contained query. Skips rewriting when there is no history."""
+        if not chat_history or chat_history.strip() == "No previous conversation." or chat_history.strip() == "":
+            return question  # first turn — already standalone
+        prompt = self._CONDENSE_PROMPT.format(
+            chat_history=chat_history, question=question
+        )
+        try:
+            result = self.llm.invoke(prompt).content.strip()
+            condensed = result.splitlines()[0].strip()  # take first line only
+            print(f"[QueryRewriter] condensed → {condensed!r}")
+            return condensed if condensed else question
+        except Exception as e:
+            print(f"[QueryRewriter] condense failed ({e}), using raw question")
+            return question
+
+    def expand(self, query: str) -> str:
+        """Return an alternative query for a second-pass retrieval attempt."""
+        prompt = self._EXPAND_PROMPT.format(query=query)
+        try:
+            result = self.llm.invoke(prompt).content.strip()
+            expanded = result.splitlines()[0].strip()
+            print(f"[QueryRewriter] expanded → {expanded!r}")
+            return expanded if expanded else query
+        except Exception as e:
+            print(f"[QueryRewriter] expand failed ({e}), reusing condensed query")
+            return query
+
+
+def smart_retrieve(question: str, chat_history: str, top_k: int = RERANK_TOP_N):
+    """
+    3-stage smart retrieval pipeline.
+
+    Stage 1 — Condense the follow-up into a standalone query and retrieve.
+    Stage 2 — Check CrossEncoder top-score as retrieval confidence.
+              If confident enough, return immediately.
+    Stage 3 — Low confidence: generate an alternative query, do a second
+              retrieval pass, merge both result sets, rerank, and return.
+
+    Returns:
+        (docs: list[Document], top_score: float)
+    Always safe — any internal error falls back to ([], 0.0) so the
+    /ask route can gracefully serve an empty-context LLM answer.
+    """
+    # Guard: startup may have failed
+    if query_rewriter is None or hybrid_retriever is None or reranker is None:
+        print("[SmartRetrieve] Core components not ready — skipping retrieval")
+        return [], 0.0
+
+    try:
+        # ── Stage 1: condensed query ────────────────────────────────────────
+        condensed = query_rewriter.condense(question, chat_history)
+
+        docs1 = hybrid_retriever.search(condensed, k_faiss=FAISS_K, k_bm25=BM25_K)
+        if not docs1:
+            print("[SmartRetrieve] Stage-1: no docs returned")
+            return [], 0.0
+
+        pairs1 = [(condensed, d.page_content) for d in docs1]
+        scores1 = list(reranker.model.predict(pairs1))
+        if not scores1:
+            return docs1[:top_k], 0.0
+        top_score = float(max(scores1))
+        print(f"[SmartRetrieve] Stage-1 top score: {top_score:.4f} | threshold: {RETRIEVAL_CONFIDENCE_THRESHOLD}")
+
+        if top_score >= RETRIEVAL_CONFIDENCE_THRESHOLD:
+            ranked = sorted(zip(docs1, scores1), key=lambda x: x[1], reverse=True)
+            return [d for d, _ in ranked[:top_k]], top_score
+
+        # ── Stage 3: low confidence — try an alternative / expanded query ───
+        print(f"[SmartRetrieve] Low confidence — expanding query for Stage-2 pass")
+        expanded = query_rewriter.expand(condensed)
+
+        docs2 = hybrid_retriever.search(expanded, k_faiss=FAISS_K, k_bm25=BM25_K)
+
+        # Merge & deduplicate by (doc_id, section)
+        merged: dict = {
+            (d.metadata.get("doc_id"), d.metadata.get("section")): d
+            for d in docs1
+        }
+        for d in docs2:
+            key = (d.metadata.get("doc_id"), d.metadata.get("section"))
+            if key not in merged:
+                merged[key] = d
+        all_docs = list(merged.values())
+
+        pairs_all = [(expanded, d.page_content) for d in all_docs]
+        scores_all = list(reranker.model.predict(pairs_all))
+        if not scores_all:
+            return all_docs[:top_k], top_score  # keep stage-1 score as reference
+        top_score2 = float(max(scores_all))
+        print(f"[SmartRetrieve] Stage-2 top score: {top_score2:.4f} | merged docs: {len(all_docs)}")
+
+        ranked_all = sorted(zip(all_docs, scores_all), key=lambda x: x[1], reverse=True)
+        return [d for d, _ in ranked_all[:top_k]], top_score2
+
+    except Exception as e:
+        print(f"[SmartRetrieve] Unexpected error ({e}), returning empty context")
+        return [], 0.0
 
 
 @app.on_event("startup")
 def startup():
-    global embedding_model, vectorstore, hybrid_retriever, reranker, llm_primary, llm_backup
+    global embedding_model, vectorstore, hybrid_retriever, reranker, llm_primary, llm_backup, query_rewriter, llm_text, intent_gate
 
     if not GEMINI_API_KEY:
         print("Warning: Missing GEMINI_API key. Gemini will not work as primary.")
@@ -300,6 +515,17 @@ def startup():
             "response_format": {"type": "json_object"}
         }
     )
+
+    # ── Plain-text LLM for rewriter + intent gate (no JSON mode) ─────────────
+    llm_text = ChatOpenAI(
+        base_url="https://api.cerebras.ai/v1",
+        openai_api_key=CEREBRAS_API_KEY,
+        model="gpt-oss-120b",
+        temperature=0.0,  # deterministic for classification
+    )
+
+    query_rewriter = QueryRewriter(llm=llm_text)
+    intent_gate    = IntentGate(llm=llm_text)
 
     print("✅ API Ready")
 
@@ -521,19 +747,37 @@ def ask(req: AskRequest, request: Request):
     chat_history_text = format_chat_history(history)
     print(f"[Memory] session={session_id}, turns={len(history.messages)}")
 
-    # ── RAG: always retrieve — intent filtering done by the LLM itself ─────────
-    docs = hybrid_retriever.search(question + chat_history_text, k_faiss=FAISS_K, k_bm25=BM25_K)
+    # ── RAG: intent-gated smart retrieval ────────────────────────────────────
+    # Step 1: check if this question even needs documentation lookup.
+    # Greetings, acknowledgements, and conversational turns skip retrieval
+    # entirely — no FAISS/BM25 calls, no reranking, no wasted latency.
+    short_history = format_chat_history(history, max_turns=QUERY_REWRITE_HISTORY_TURNS)
+    docs: list = []
+    retrieval_score: float = 0.0
+
+    if intent_gate is not None and intent_gate.needs_retrieval(question):
+        docs, retrieval_score = smart_retrieve(
+            question=question,
+            chat_history=short_history,
+            top_k=req.top_k or RERANK_TOP_N,
+        )
+        print(f"[SmartRetrieve] Final docs={len(docs)}, confidence={retrieval_score:.4f}")
+    else:
+        print(f"[IntentGate] Retrieval skipped — proceeding with empty context")
+
 
     context = ""
     references_text = ""
     if docs:
-        reranker.top_n = req.top_k or RERANK_TOP_N
-        docs = reranker.rerank(question, docs)
         context = build_context(docs)
 
+        # Only show references from top 2 most relevant docs (already sorted by rerank score)
         ref_list = []
         seen_urls = set()
+        MAX_REFS = 2
         for d in docs:
+            if len(ref_list) >= MAX_REFS:
+                break
             title = d.metadata.get('title')
             doc_id = d.metadata.get('doc_id')
             if title and doc_id:
@@ -615,14 +859,13 @@ def ask(req: AskRequest, request: Request):
         is_doc = (llm_intent == "documentation")
         print(f"[Intent] {llm_intent!r} | steps={len(llm_steps)} | fuqs={len(llm_fuqs)}")
 
-        # ── Media: regex fallback only for documentation with no LLM media ──
-        if is_doc and not llm_images and not llm_videos:
-            ctx_images, ctx_videos = extract_media_from_context(context)
-            final_images = ctx_images[:3]
-            final_videos = ctx_videos[:1]
-        else:
-            final_images = llm_images
-            final_videos = llm_videos
+        # ── Media: trust the LLM's selection — no blind regex fallback ────────
+        # The LLM has full context including all media URLs; if it returns
+        # empty lists, it means no media is directly relevant to the answer.
+        # Previously we had a regex fallback that dumped ALL context media,
+        # causing irrelevant screenshots to appear.
+        final_images = llm_images
+        final_videos = llm_videos
 
         # ── References only for documentation answers ────────────────────────
         show_refs = is_doc and not is_fallback and bool(context)

@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-03-11T08:44:57.986058+00:00",
+  "index_dir": "oppiwallet_com_rag_data_faiss_index",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "docs_indexed": 194,
+  "embed_time_s": 25.68,
+  "total_time_s": 92.23,
+  "source_meta": {
+    "task": "RAG Pipeline",
+    "status": "success",
+    "input_url": "oppiwallet.com",
+    "base_url": "https://oppiwallet.com",
+    "sitemap_url": "https://oppiwallet.com/sitemap.xml",
+    "total_discovered": 80,
+    "scraped": 74,
+    "failed": 6,
+    "failed_urls": [
+      "https://oppiwallet.com/en/blog/how-to-buy-bitcoin-in-2026-for-beginners",
+      "https://oppiwallet.com/en/blog/what-are-stablecoins-and-how-they-work",
+      "https://oppiwallet.com/en/blog/why-oppipay-wallet-is-the-best-choice-for-managing-your-nfts-and-crypto",
+      "https://oppiwallet.com/tr/blog/how-to-buy-bitcoin-in-2026-for-beginners",
+      "https://oppiwallet.com/tr/blog/what-are-stablecoins-and-how-they-work",
+      "https://oppiwallet.com/tr/blog/why-oppipay-wallet-is-the-best-choice-for-managing-your-nfts-and-crypto"
+    ],
+    "total_chunks": 194,
+    "errors": [
+      "Scrape failed https://oppiwallet.com/en/blog/how-to-buy-bitcoin-in-2026-for-beginners: 404 Client Error: Not Found for url: https://oppiwallet.com/en/blog/how-to-buy-bitcoin-in-2026-for-beginners",
+      "Scrape failed https://oppiwallet.com/en/blog/what-are-stablecoins-and-how-they-work: 404 Client Error: Not Found for url: https://oppiwallet.com/en/blog/what-are-stablecoins-and-how-they-work",
+      "Scrape failed https://oppiwallet.com/en/blog/why-oppipay-wallet-is-the-best-choice-for-managing-your-nfts-and-crypto: 404 Client Error: Not Found for url: https://oppiwallet.com/en/blog/why-oppipay-wallet-is-the-best-choice-for-managing-your-nfts-and-crypto",
+      "Scrape failed https://oppiwallet.com/tr/blog/how-to-buy-bitcoin-in-2026-for-beginners: 404 Client Error: Not Found for url: https://oppiwallet.com/tr/blog/how-to-buy-bitcoin-in-2026-for-beginners",
+      "Scrape failed https://oppiwallet.com/tr/blog/what-are-stablecoins-and-how-they-work: 404 Client Error: Not Found for url: https://oppiwallet.com/tr/blog/what-are-stablecoins-and-how-they-work",
+      "Scrape failed https://oppiwallet.com/tr/blog/why-oppipay-wallet-is-the-best-choice-for-managing-your-nfts-and-crypto: 404 Client Error: Not Found for url: https://oppiwallet.com/tr/blog/why-oppipay-wallet-is-the-best-choice-for-managing-your-nfts-and-crypto"
+    ],
+    "generated_at": "2026-03-11T05:46:46.552357+00:00"
+  },
+  "skipped_chunks": []
+}

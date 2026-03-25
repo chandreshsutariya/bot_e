@@ -1,0 +1,25 @@
+# ─────────────────────────────────────────────
+#  Playage ETL Pipeline — requirements.txt
+#  Install: pip install -r requirements.txt
+#  Run    : uvicorn main:app --host 0.0.0.0 --port 8010 --reload
+# ─────────────────────────────────────────────
+
+# Web framework
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+
+# Rate limiting
+slowapi>=0.1.9
+
+# HTTP client
+requests>=2.31.0
+
+# HTML parsing & content extraction
+beautifulsoup4>=4.12.0
+readability-lxml>=0.8.4
+lxml>=5.0.0
+lxml-html-clean>=0.1.0          # required by readability-lxml >= 0.8.4
+chardet>=5.0.0                  # required by readability internals
+
+# Text encoding fix (optional but used if present)
+ftfy>=6.1.0
